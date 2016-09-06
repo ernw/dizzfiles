@@ -1,0 +1,22 @@
+name = "usb_device_descriptor"
+
+objects = [
+     field("bLength", 8, b"\x12", "std"),
+     field("bDescriptorType", 8, b"\x01", "std"),
+     field("bcdUSB", 16, b"\x00\x01", "std"),
+     field("bDeviceClass", 8, b"\x00", "std"),
+     field("bDeviceSubClass", 8, b"\x00", "std"),
+     field("bDeviceProtocol", 8, b"\x00", "std"),
+     field("bMaxPacketSize", 8, b"\x40", "std"),
+     field("idVendor", 16, b"\x6a\x0b", "std"),
+     field("idProduct", 16, b"\x46\x53", "std"),
+     field("bcdDevice", 16, b"\x34\x12", "std"),
+     field("iManufacturer", 8, b"\x01", "std"),
+     field("iProduct", 8, b"\x02", "std"),
+     field("iSerial", 8, b"\x03", "std"),
+     field("bNumConfigurations", 8, b"\x01", "std"),
+    ]
+
+functions = [
+    length("bLength", "bLength", "bNumConfigurations"),
+]

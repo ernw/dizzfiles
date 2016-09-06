@@ -1,0 +1,35 @@
+name = "icmp_echo-request"
+
+objects = [
+    field("eth_dst", 48, b"\x02\x1a\x11\xf0\xc8\x3b", none),
+    field("eth_src", 48, b"\x60\x33\x4b\x13\xc5\x58", none),
+    field("eth_type", 16, b"\x08\x00", none),
+    
+    field("ip_ver", 4, b"\x04", none),
+    field("ip_hdr_len", 4, b"\x05", none),
+    field("ip_diff_serv", 8, b"\x00", none),
+    field("ip_len", 16, b"\x00\x00", none),
+    rand("ip_id", 16),
+    field("ip_flags", 3, b"\x00", none),
+    field("ip_off", 13, b"\x00\x00", none),
+    field("ip_ttl", 8, b"\xfa", none),
+    field("ip_prot", 8, b"\x01", none),
+    field("ip_csum", 16, b"\x00\x00", none),
+    field("ip_src", 32, b"\xc0\xa8\x2b\x09", none),
+    field("ip_dst", 32, b"\x08\x08\x08\x08", none),
+    
+    field("icmp_type", 8, b"\x08", full),
+    field("icmp_code", 8, b"\x00", full),
+    field("icmp_csum", 16, b"\x00\x00", none),
+    field("icmp_id", 16, b"\xd7\x3b", full),
+    field("icmp_seq", 16, b"\x00\x00", none),
+    
+    field("icmp_timestamp", 64, b"\x51\xa7\xd6\x7d\x00\x04\x51\xe4", none),
+    field("icmp_data", None, b"\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37", std),
+    ]
+
+functions = [
+    #time("icmp_timestamp"),
+    csum("icmp_csum", "icmp_type", "icmp_data", "inet"),
+    csum("ip_csum", "ip_ver", "ip_dst", "inet"),
+    ]

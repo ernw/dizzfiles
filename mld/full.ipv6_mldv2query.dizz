@@ -1,0 +1,109 @@
+#IPv6- Hop by Hop Header
+
+import tools
+
+name = "MLDv2 Query Template"
+
+objects = [
+
+# Ethernet Header
+    field("eth.dst", 48, b"\x33\x33\x00\x00\x00\x01", none),
+    field("eth.src", 48, b"\x00\x00\x00\x00\x00\xff", none),
+    field("eth.type",16, b"\x86\xdd", none),
+# End Ethernet Header
+
+# IPv6 Header 
+    field("ip6.version", 4, b"\x06", none),
+    field("ipv6.traffic_class", 8, b"\x00", none),
+    field("ipv6.flow", 20, b"\x00\x00\x00", none),
+    field("ipv6.plen", 16, b"\x00\x00", none),
+    field("ipv6.nxt", 8, b"\x00", none),
+    field("ipv6.hlim", 8, b"\x01", none),
+    field("ipv6.src.pre", 16, b"\xfe\x80", none),
+    field("ipv6.src.mid", 80, b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", none),
+    field("ipv6.src.suf", 32, b"\x00\x00\x00\x14", none),
+    field("ipv6.dst.pre", 16, b"\xff\x02", none),
+    field("ipv6.dst.mid", 80, b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", none),
+    field("ipv6.dst.suf", 32, b"\x00\x00\x00\x01", none),
+# End IPv6 Header
+
+# Hop-by-Hop Header
+    field("ipv6.hop_opt.nxt"	, 8	, b"\x3a"	, none),
+    field("ipv6.hop_opt.len"	, 8	, b"\x00"	, none),
+    field("ipv6.hop_opt.typ"	, 8	, b"\x05"	, none),
+    field("ipv6.hop_opt.optlen"	, 8	, b"\x02"	, none),
+    field("ipv6.hop_opt.pad1"	, 16	, b"\x00\x00"	, none),
+    field("ipv6.hop_opt.pad2"	, 16	, b"\x00\x00"	, none),
+# End Hop-by-Hop Header
+
+
+# MLD Header
+    field("icmpv6.type", 8, b"\x82", none),
+    field("icmpv6.code", 8, b"\x00", std),
+    field("icmpv6.csum", 16, b"\x00\x00", none),
+    field("icmpv6.maxresco", 16, b"\x00\x00", std),
+    field("icmpv6.res", 16, b"\x00\x00", std),
+# End MLD Header
+
+ # MLD Query
+    field("icmpv6.mldr.multicast_address.start"	, 12	, b"\x0f\xf0"			, none),
+    field("icmpv6.mldr.multicast_address.scope"	, 4	, b"\x00"			, full),
+    field("icmpv6.mldr.multicast_address.part1"	, 56	, b"\x00\x00\x00\x00\x00\x00\x00", none),
+    field("icmpv6.mldr.multicast_address.part2"	, 48	, b"\x00\x00\x00\x00\x00\x00"	, none),
+    field("icmpv6.mldr.multicast_address.end"	, 8	, b"\x01"			, std),
+    field("icmpv6.mld.sflag_robustness"			, 8	, b"\x07", full),
+    field("icmpv6.mld.qqic"				, 8	, b"\x44", full),
+    field("icmpv6.mld.nb_sources"			, 16	, b"\x00\x17", std),
+    field("icmpv6.src1", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01", none),
+    field("icmpv6.src2", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02", none),
+    field("icmpv6.src3", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03", none),
+    field("icmpv6.src4", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x04", none),
+    field("icmpv6.src5", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x05", none),
+    field("icmpv6.src6", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x06", none),
+    field("icmpv6.src7", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x07", none),
+    field("icmpv6.src8", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08", none),
+    field("icmpv6.src9", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x09", none),
+    field("icmpv6.src10", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10", none),
+    field("icmpv6.src11", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11", none),
+    field("icmpv6.src12", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12", none),
+    field("icmpv6.src13", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x13", none),
+    field("icmpv6.src14", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x14", none),
+    field("icmpv6.src15", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x15", none),
+    field("icmpv6.src16", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16", none),
+    field("icmpv6.src17", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x17", none),
+    field("icmpv6.src18", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x18", none),
+    field("icmpv6.src19", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x19", none),
+    field("icmpv6.src20", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20", none),
+    field("icmpv6.src21", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x21", none),
+    field("icmpv6.src22", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x22", none),
+    field("icmpv6.src23", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x23", none),
+
+
+
+#    field("mld.extra", 8, b"\x00", full),
+
+# End MLD Query
+
+]#End objects
+
+def icmpv6csum(self, input):
+
+	output  = self.obj_dict["ipv6.src.pre"]["cur"]
+	output += self.obj_dict["ipv6.src.mid"]["cur"]
+	output += self.obj_dict["ipv6.src.suf"]["cur"]
+	output += self.obj_dict["ipv6.dst.pre"]["cur"]
+	output += self.obj_dict["ipv6.dst.mid"]["cur"]
+	output += self.obj_dict["ipv6.dst.suf"]["cur"]
+	output += tools.pack_with_length(len(input),32)
+	output += b'\x00\x00\x00'
+	output += self.obj_dict["ipv6.hop_opt.nxt"]["cur"]
+	output += input
+	
+	#print(output)
+
+	return output
+
+functions = [
+	length("ipv6.plen", "ipv6.hop_opt.nxt", "icmpv6.src23"),
+	lambda2_csum("icmpv6.csum", "icmpv6.type", "icmpv6.src23", "inet", icmpv6csum, lambda x, y: y)
+]

@@ -1,0 +1,21 @@
+name = "cdp"
+
+objects = [
+    field("eth_dst", 48, b"\x01\x00\x0c\xcc\xcc\xcc", none),
+    field("eth_src", 48, b"\x00\x01\x02\x03\x04\x05", none),
+    field("eth_length", 16, b"\x00\x00\x00\x00", none),
+
+    field("DSAP", 16, b"\xaa", none),					 #/* DSAP */
+    field("SSAP", 16, b"\xaa", none),					 #/* SSAP */
+    field("func", 16, b"\x03", none),					 #/* func */
+    field("orgCode", 48, b"\x00\x00\x0c", none), 		 #/* Orga-code */
+    field("CDP", 32, b"\x20\x00", none), 				 #/* CDP */
+
+    field("version", 16, b"\x02", std),					 #/* CDP-Version: 2 */
+    field("TTL", 16, b"\xb4", std),  					 #/* TTL */
+    field("csum", 32, b"\xb8\xa7", none),				 #/* Checksum */
+]
+
+functions = [
+    length("eth_length", "eth_dst", ""),
+]

@@ -1,0 +1,32 @@
+#ESXi Host Sparse Extend Header - root
+
+name = "ESXi Host Sparse Extend Header - root"
+
+objects = [ 
+    field("magicNumber", 32, b"COWD", none),
+    field("version", 32, b"\x00\x00\x00\x01", std),
+    field("flags", 32, b"\x00\x00\x00\x03", std),
+    field("numSectors", 32, b"\x00\x00\x00\xff", std),
+    field("grainSize", 32, b"\x00\x00\x00\x01", std),
+    field("gdOffset", 32, b"\x00\x00\x00\x04", std),
+    field("numGDEntries", 32, b"\x00\x00\x00\x04", std),
+    field("freeSector", 32, b"\x00\x00\x00\x08", std),
+    #root
+    field("cylinders", 32, b"\x00\x00\x00\x00", std),
+    field("heads", 32, b"\x00\x00\x00\x00", std),
+    field("sectors", 32, b"\x00\x00\x00\x00", std),
+    #child
+    #field("parentFileName", 64, b"\x00\x00\x00\x00\x00\x00\x00\x00", none),
+    #field("parentGeneration", 32, b"\x00\x00\x00\x00", none),
+    field("generation", 32, b"\x00\x00\x00\x00", std),
+    field("name", 64, b"\x00\x00\x00\x00\x00\x00\x00\x00", std),
+    field("description", 64, b"\x00\x00\x00\x00\x00\x00\x00\x00", std),
+    field("savedGeneration", 32, b"\x00\x00\x00\x00", std),
+    field("reserved", 8 * 8, b"\x00" * 8, std),
+    field("uncleanShutdown", 32, b"\x00\x00\x00\x00", std),
+    field("padding", 8 * None, b"\x00" * 396, none)
+    ]
+    
+functions = [
+
+    ]

@@ -1,0 +1,108 @@
+
+import tools
+
+name = "MLDv2 Report Template"
+
+objects = [
+
+# Ethernet Header
+    field("eth.dst", 48, b"\x33\x33\x00\x00\x00\x16", none),
+    field("eth.src", 48, b"\x00\x00\x00\x00\x00\x01", none),
+    field("eth.type",16, b"\x86\xdd", none),
+# End Ethernet Header
+
+# IPv6 Header 
+    field("ip6.version", 4, b"\x06", none),
+    field("ipv6.traffic_class", 8, b"\x00", none),
+    field("ipv6.flow", 20, b"\x00\x00\x00", none),
+    field("ipv6.plen", 16, b"\x00\x24", none),
+    field("ipv6.nxt", 8, b"\x00", none),
+    field("ipv6.hlim", 8, b"\x01", none),
+    field("ipv6.src", 128, b"\xfe\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xda", none),
+    field("ipv6.dst", 128, b"\xff\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16", none),
+# End IPv6 Header
+
+# Hop-by-Hop Header
+    field("ipv6.hop_opt.nxt"	, 8	, b"\x3a"	, none),
+    field("ipv6.hop_opt.len"	, 8	, b"\x00"	, none),
+    field("ipv6.hop_opt.typ"	, 8	, b"\x05"	, none),
+    field("ipv6.hop_opt.optlen"	, 8	, b"\x02"	, none),
+    field("ipv6.hop_opt.pad1"	, 16	, b"\x00\x00"	, none),
+    field("ipv6.hop_opt.pad2"	, 16	, b"\x01\x00"	, none),
+# End Hop-by-Hop Header
+
+# MLD Header
+    field("icmpv6.type", 8	, b"\x8f"	, none),
+    field("icmpv6.code", 8	, b"\x00"	, std),
+    field("icmpv6.csum", 16	, b"\x00\x00"	, none),
+    field("icmpv6.res2"			, 16, b"\x00\x00", std),
+    field("icmpv6.mld.nb_mcast_records"	, 16, b"\x00\x02", std),
+# End MLD Header
+
+# Multicast Address Record
+    field("icmpv6.mldr.mar01.record_type"		, 8	, b"\x02"			, full),
+    field("icmpv6.mldr.mar01.aux_data_len"		, 8	, b"\x00"			, std),
+    field("icmpv6.mldr.mar01.nb_sources"		, 16	, b"\x00\x00"			, none),
+    field("icmpv6.mldr.mar01.multicast_address.start"	, 12	, b"\x0f\xf0"			, none),
+    field("icmpv6.mldr.mar01.multicast_address.scope"	, 4	, b"\x08"			, full),
+    field("icmpv6.mldr.mar01.multicast_address.part1"	, 56	, b"\x00\x00\x00\x00\x00\x00\x00", none),
+    field("icmpv6.mldr.mar01.multicast_address.part2"	, 48	, b"\x00\x00\x00\x00\x00\x00"	, none),
+    field("icmpv6.mldr.mar01.multicast_address.end"	, 8	, b"\xda"			, std),
+# End Multicast Address Record
+
+# Multicast Address Record
+    field("icmpv6.mldr.mar02.record_type"		, 8	, b"\x02"			, full),
+    field("icmpv6.mldr.mar02.aux_data_len"		, 8	, b"\x00"			, std),
+    field("icmpv6.mldr.mar02.nb_sources"		, 16	, b"\x00\x17"			, std),
+    field("icmpv6.mldr.mar02.multicast_address.start"	, 12	, b"\x0f\xf0"			, std),
+    field("icmpv6.mldr.mar02.multicast_address.scope"	, 4	, b"\x08"			, full),
+    field("icmpv6.mldr.mar02.multicast_address.part1"	, 56	, b"\x00\x00\x00\x00\x00\x00\x00", none),
+    field("icmpv6.mldr.mar02.multicast_address.part2"	, 48	, b"\x00\x00\x00\x00\x00\x00"	, none),
+    field("icmpv6.mldr.mar.multicast_address.end"	, 8	, b"\xda"			, std),
+    field("icmpv6.src1", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01", std),
+    field("icmpv6.src2", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02", std),
+    field("icmpv6.src3", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03", std),
+    field("icmpv6.src4", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x04", std),
+    field("icmpv6.src5", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x05", std),
+    field("icmpv6.src6", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x06", std),
+    field("icmpv6.src7", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x07", std),
+    field("icmpv6.src8", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08", std),
+    field("icmpv6.src9", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x09", std),
+    field("icmpv6.src10", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10", std),
+    field("icmpv6.src11", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x11", std),
+    field("icmpv6.src12", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12", std),
+    field("icmpv6.src13", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x13", std),
+    field("icmpv6.src14", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x14", std),
+    field("icmpv6.src15", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x15", std),
+    field("icmpv6.src16", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16", std),
+    field("icmpv6.src17", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x17", std),
+    field("icmpv6.src18", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x18", std),
+    field("icmpv6.src19", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x19", std),
+    field("icmpv6.src20", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20", std),
+    field("icmpv6.src21", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x21", std),
+    field("icmpv6.src22", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x22", std),
+    field("icmpv6.src23", 128, b"\xff\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x23", std),
+# End Multicast Address Record
+
+
+]
+
+#End objects
+
+def icmpv6csum(self, input):
+
+	output  = self.obj_dict["ipv6.src"]["cur"]
+	output += self.obj_dict["ipv6.dst"]["cur"]
+	output += tools.pack_with_length(len(input),32)
+	output += b'\x00\x00\x00'
+	output += self.obj_dict["ipv6.hop_opt.nxt"]["cur"]
+	output += input
+	
+	#print(output)
+
+	return output
+
+functions = [
+	length("ipv6.plen", "ipv6.hop_opt.nxt", "icmpv6.mldr.mar.multicast_address.end"),
+	lambda2_csum("icmpv6.csum", "icmpv6.type", "icmpv6.mldr.mar.multicast_address.end", "inet", icmpv6csum, lambda x, y: y)
+]

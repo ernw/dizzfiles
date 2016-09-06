@@ -1,0 +1,20 @@
+name = "arp"
+
+objects = [
+    field("eth_dst", 48, b"\x2c\x54\x2d\x06\x37\xf6", "none"),
+    field("eth_src", 48, b"\x01\x02\x03\x04\x05\x06", "none"),
+    field("eth_type", 16, b"\x08\x06", "none"),
+
+    field("hw_type", 16, b"\x00\x01", "full"),       #/* Hardware Type -> here Ethernet (1)*/
+    field("proto_type", 16, b"\x08\x00", "full"),    #/* Protocol Type -> here IP (8) */
+    field("hw_size", 8, b"\x06", "full"),            #/* Hardware size -> here MAC (48Bit /6Byte) */
+    field("proto_size", 8, b"\x04", "full"),         #/* Protocol Size -> here IP (32Bit /4Byte) */
+    field("opcode", 16, b"\x00\x01", "full"),        #/* Opcode (1->request, 2->reply) */
+    field("mac_src", 48, b"\x01\x02\x03\x04\x05\x06", "none"),   #/* MAC-Src */
+    field("ip_src", 32, b"\xc0\xa8\x5f\xb5", "none"),            #/* IP-Src */
+    field("mac_dst", 48, b"\x00\x00\x00\x00\x00\x00", "none"),   #/* MAC-Dst */
+    field("ip_dst", 32, b"\xc0\xa8\x5f\xb6", "none"),            #/* IP-Dst */
+    field("payload", None, b"\x00\x00", "std")
+    ]
+
+functions = []

@@ -1,0 +1,44 @@
+name = "arp"
+
+objects = [
+    #~ 1 byte bitfild with:
+    #~ 0-2  - version           -    It is a 3-bit field. For GTPv2, this has a value of 2 (010).
+    #~ 3    - Piggybacking flag (P) - Bit 5 represents a "P" flag. If the "P" flag is set to "0", no piggybacked message shall be present. If the "P" flag is set to "1", then another GTPv2-C message with its own header and body shall be present at the end of the current message
+    #~ 4    - TEID flag (T)     - Bit 4 represents a "T" flag, which indicates if TEID field is present in the GTP-C header or not. If the "T" flag is set to 0, then the TEID field shall not be present in the GTP-C header. If the "T" flag is set to 1, then the TEID field shall immediately follow the Length field, in octets 5 to 8. Apart from the Echo Request, Echo Response and Version Not Supported Indication messages, in all EPC specific messages the value of the "T" flag shall be set to "1".
+    #~ 5    - spare - The sending entity shall set it to "0" and the receiving entity shall ignore it.
+    #~ 6    - spare - The sending entity shall set it to "0" and the receiving entity shall ignore it.
+    #~ 7    - spare - The sending entity shall set it to "0" and the receiving entity shall ignore it.
+    #~ 010 0 0 000
+    field("ver_piggy_teid", 8, b"\x40", full),
+
+
+    #~ 1 byte message type      -    an 8-bit field that indicates the type of GTP message.
+    field("msg_type", 8, b"\x01", full),
+
+    #~ 2 byte length            -    a 16-bit field that indicates the length of the payload in bytes (rest of the packet following the mandatory 8-byte GTP header). Includes the optional fields.
+    field("gtp_len", 16, b"\x00\x00", full),
+
+    #~ 3 byte sequence number
+    field("seq", 24, b"\x00\x00\x01", std),
+
+    #~ Spare
+    field("spare", 8, b"\x00", none),
+
+    #~ IE Type: Recovery (Restart Counter) (3)
+    field("ie", 8, b"\x03", full),
+
+    #~ IE Length: 1
+    field("ie_len", 16, b"\x00\x01", none),   #lambda x-1 ?!!! => only restart?
+    
+    # 000. .... = CR flag: 0
+    # .... 0000 = Instance: 0
+    field("cr_inst", 8, b"\x00", full),
+
+    # Restart Counter: 1
+    field("restart", 8, b"\x01", full),
+    ]
+
+functions = [
+    length("ie_len", "cr_inst", "restart"),
+    length("gtp_len", "seq", "restart"),
+]

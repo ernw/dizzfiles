@@ -1,0 +1,13 @@
+name = "gtp_T-PDU"
+
+objects = [
+    field('flags', 8, b'\x00', std),
+	field('Type', 8, b'\xff', std),
+	field('Len', 16, b'\x00\x00', std),
+	field('TEID', 32, b'\x00\x00\x00\x01', std),
+	field('Data', None, b'Troopers2014', std)
+    ]
+
+functions = [
+    length('Len','Data','Data')
+    ]

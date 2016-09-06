@@ -1,0 +1,52 @@
+name = "HTTP/1.1 Request"
+
+objects = [   
+    field("Method", None, b"POST", "std"),
+    field("Spacer1", 8, b" ", "std"),
+    field("Path", None, b"/asdasd.cgi", "std"),
+    field("Spacer2", 8, b" ", "std"),
+    field("Version", None, b"HTTP/1.1", "std"),
+    field("Break1", 16, b"\r\n", "std"),
+    
+    field("Header1", None, b"Host", "std"),
+    field("Spacer3", 16, b": ", "std"),
+    field("Value1", None, b"localhost:123", "std"),
+    field("Break2", 16, b"\r\n", "std"),
+    
+    field("Header2", None, b"Connection", "std"),
+    field("Spacer4", 16, b": ", "std"),
+    field("Value2", None, b"keep-alive", "std"),
+    field("Break3", 16, b"\r\n", "std"),
+
+    field("Header3", None, b"Cache-Control", "std"),
+    field("Spacer5", 16, b": ", "std"),
+    field("Value3", None, b"max-age=0", "std"),
+    field("Break4", 16, b"\r\n", "std"),
+
+    field("Header4", None, b"Accept", "std"),
+    field("Spacer6", 16, b": ", "std"),
+    field("Value4", None, b"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8", "std"),
+    field("Break5", 16, b"\r\n", "std"),
+
+    field("Header5", None, b"User-Agent", "std"),
+    field("Spacer7", 16, b": ", "std"),
+    field("Value5", None, b"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36", "std"),
+    field("Break6", 16, b"\r\n", "std"),
+
+    field("Header6", None, b"Accept-Encoding", "std"),
+    field("Spacer8", 16, b": ", "std"),
+    field("Value6", None, b"gzip,deflate,sdch", "std"),
+    field("Break7", 16, b"\r\n", "std"),
+
+    field("Header7", None, b"Content-Length", "std"),
+    field("Spacer9", 16, b": ", "std"),
+    field("Value7", None, b"9", "std"),
+    field("Break8", 16, b"\r\n", "std"),
+    field("Break9", 16, b"\r\n", "std"),
+    
+    field("Data", None, b"asdasdasd", "std"),
+    
+    
+    ]
+
+functions = [  ]

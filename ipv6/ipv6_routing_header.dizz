@@ -1,0 +1,45 @@
+#IPv6- Routing Header
+name = "Routing Template"
+
+objects = [
+    field("eth_dst", 48, b"\xff\xff\xff\xff\xff\xff", "none"),
+    field("eth_src", 48, b"\x00\x14\xe2\xab\xe0\x69", "none"),
+    #rand("eth_src", 48),
+    field("eth_type", 16, b"\x08\x00", "none"),
+ 
+# IPv6 Header 
+    field("ip_version", 4, b"\x06", none),
+    field("traffic_class", 8, b"\x00", none),
+    field("flow_label", 20, b"\x00\x00\x00", full),
+    field("payload_length", 16, b"\x0b\x06", none),
+    field("padding", 8, b"\x00", none),    
+    field("next_header", 8, b"\x2b", none),
+    field("hop_limit", 8, b"\x30", none),
+    field("source", 128, b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01", none),
+    field("destination", 128, b"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff", none),
+# End IPv6 Header
+# Routing Header
+    field("next_header_extension_1", 8, b"\x3a", none),
+    field("header_extension_length", 8, b"\x02", none),
+    field("routing_typ", 8, b"\x00", none),
+    field("segments_left", 8, b"\x01", none),
+    field("reserved", 32, b"\x00\x00\x00\x00", none),
+    field("address", 128, b"\xfe\x80\x0d\xb8\xde\xad\xbe\xff\x6e\x88\x14\xff\xfe\xf5\x4f\xd8", none),
+# End Routing Header 
+
+# ICMPv6
+    field("icmpv6_type", 8, b"\x80", none),
+    field("icmpv6_code", 8, b"\x00", none),
+    field("icmpv6_checksum", 16, b"\x3c\x91", none),
+    field("icmpv6_identifier", 16, b"\x00\x00", none),
+    field("icmpv6_sequenz", 16, b"\x00\x12", none),
+    field("icmpv6_data", 176, b"\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12\x12", none),
+
+
+# End ICMPv6
+
+   
+]#End objects
+
+
+functions = []

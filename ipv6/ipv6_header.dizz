@@ -1,0 +1,36 @@
+#IPv6- Header
+name = "ipv6 header"
+
+objects = [
+    field("eth_dst", 48, b"\xff\xff\xff\xff\xff\xff", "none"),
+    field("eth_src", 48, b"\x00\x14\xe2\xab\xe0\x69", "none"),
+    #rand("eth_src", 48),
+    field("eth_type", 16, b"\x86\xdd", "none"),
+ 
+# IPv6 Header 
+    field("ip_version", 4, b"\x06", none),
+    field("traffic_class", 8, b"\x00", none),
+    field("flow_label", 20, b"\x00\x00\x00", full),
+    field("payload_length", 16, b"\x00\x00", none),
+    field("next_header", 8, b"\x11", none),
+    field("hop_limit", 8, b"\x30", none),
+    field("source", 128, b"\x14\x01\x0d\xb8\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x02\x01", none),
+    field("destination", 128, b"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff", none),
+# End IPv6 Header
+
+
+
+# Upper-Layer Protocol Data Unit
+    field("udp_src", 16, b"\x00\x44", none),
+    field("udp_dst", 16, b"\x00\x43", none),
+    field("udp_len", 16, b"\x00\x00", none),
+    field("udp_csum", 16, b"\x00\x00", none),
+# End Upper-Layer PDU
+
+   
+]#End objects
+
+
+functions = [
+    length("payload_length", "udp_src", "udp_csum")
+    ]

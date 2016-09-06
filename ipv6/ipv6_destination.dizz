@@ -1,0 +1,56 @@
+#IPv6- Destination Header
+name = "Destination template"
+
+objects = [
+    field("eth_dst", 48, b"\x00\x24\xdc\x6d\x1d\xc5", "none"),
+    field("eth_src", 48, b"\x00\x14\xe2\xab\xe0\x69", "none"),
+    #rand("eth_src", 48),
+    field("eth_type", 16, b"\x08\x00", "none"),
+ 
+# IPv6 Header 
+    field("ip_version", 4, b"\x06", none),
+    field("traffic_class", 8, b"\x00", none),
+    field("flow_label", 20, b"\x00\x00\x00", full),
+    field("payload_length", 16, b"\x00\x2c", none),
+    field("padding", 8, b"\x00", none),    
+    field("next_header", 8, b"\x3c", none),
+    field("hop_limit", 8, b"\x3f", none),
+    field("source", 128, b"\x20\x01\x0d\xb8\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x02\x01", none),
+    field("destination", 128, b"\x20\x01\xdb\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01", none),
+# End IPv6 Header
+# Destination Header
+    field("next_header_extension_1", 8, b"\x3c", none),
+    field("header_extension_length", 8, b"\x00", none),
+    field("pad_1", 8, b"\x00", none),
+    field("pad_2", 8, b"\x00", none),
+    field("pad_3", 8, b"\x00", none),
+    field("pad_4", 8, b"\x00", none),
+    field("pad_5", 8, b"\x00", none),
+    field("pad_6", 8, b"\x00", none),
+
+    field("next_header_extension_2", 8, b"\x11", none),
+    field("header_extension_length2", 8, b"\x00", none),
+    field("2pad_1", 8, b"\x00", none),
+    field("2pad_2", 8, b"\x00", none),
+    field("2pad_3", 8, b"\x00", none),
+    field("2pad_4", 8, b"\x00", none),
+    field("2pad_5", 8, b"\x00", none),
+    field("2pad_6", 8, b"\x00", none),
+
+
+# End Destination Header 
+
+
+
+# Upper-Layer Protocol Data Unit
+    field("udp_src", 16, b"\x00\x44", none),
+    field("udp_dst", 16, b"\x00\x43", none),
+    field("udp_len", 16, b"\x00\x08", none),
+    field("udp_csum", 16, b"\x00\x01", none),
+# End Upper-Layer PDU
+
+   
+]#End objects
+
+
+functions = []

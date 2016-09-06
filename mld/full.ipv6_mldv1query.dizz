@@ -1,0 +1,79 @@
+
+import tools
+
+name = "MLDv1 Query Template"
+
+objects = [
+
+# Ethernet Header
+    field("eth.dst", 48, b"\x33\x33\x00\x00\x00\x01", none),
+    field("eth.src", 48, b"\x00\x00\x00\x00\x00\x14", none),
+    field("eth.type",16, b"\x86\xdd", none),
+# End Ethernet Header
+
+# IPv6 Header 
+    field("ip6.version", 4, b"\x06", none),
+    field("ipv6.traffic_class", 8, b"\x00", none),
+    field("ipv6.flow", 20, b"\x00\x00\x00", none),
+    field("ipv6.plen", 16, b"\x00\x00", none),
+    field("ipv6.nxt", 8, b"\x00", none),
+    field("ipv6.hlim", 8, b"\x01", none),
+    field("ipv6.src.pre", 16, b"\xfe\x80", none),
+    field("ipv6.src.mid", 80, b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", none),
+    field("ipv6.src.suf", 32, b"\x00\x00\x00\x14", none),
+    field("ipv6.dst.pre", 16, b"\xff\x02", none),
+    field("ipv6.dst.mid", 80, b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", none),
+    field("ipv6.dst.suf", 32, b"\x00\x00\x00\x01", none),
+# End IPv6 Header
+
+# Hop-by-Hop Header
+    field("ipv6.hop_opt.nxt"	, 8	, b"\x3a"	, none),
+    field("ipv6.hop_opt.len"	, 8	, b"\x00"	, none),
+    field("ipv6.hop_opt.typ"	, 8	, b"\x05"	, none),
+    field("ipv6.hop_opt.optlen"	, 8	, b"\x02"	, none),
+    field("ipv6.hop_opt.pad1"	, 16	, b"\x00\x00"	, std),
+    field("ipv6.hop_opt.pad2"	, 16	, b"\x00\x00"	, std),
+# End Hop-by-Hop Header
+
+
+# MLD Header
+    field("icmpv6.type", 8, b"\x82", none),
+    field("icmpv6.code", 8, b"\x00", std),
+    field("icmpv6.csum", 16, b"\x00\x00", none),
+    field("icmpv6.maxresco", 16, b"\x00\x00", std),
+    field("icmpv6.res", 16, b"\x00\x00", std),
+# End MLD Header
+
+# MLD Query
+    field("icmpv6.mldr.mar01.multicast_address.start"	, 12	, b"\xff\x00"			, none),
+    field("icmpv6.mldr.mar01.multicast_address.scope"	, 4	, b"\x02"			, full),
+    field("icmpv6.mldr.mar01.multicast_address.part1"	, 56	, b"\x00\x00\x00\x00\x00\x00\x00", none),
+    field("icmpv6.mldr.mar01.multicast_address.part2"	, 48	, b"\x00\x00\x00\x00\x00\x00"	, none),
+    field("icmpv6.mldr.mar01.multicast_address.end"	, 8	, b"\x01"			, none),
+#    field("icmpv6.mld.extra", 16, b"\x00\x00", full),
+#    field("ipv6.src", 128, b"\xfe\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xda", std),
+# End MLD Query
+
+]#End objects
+
+def icmpv6csum(self, input):
+
+	output  = self.obj_dict["ipv6.src.pre"]["cur"]
+	output += self.obj_dict["ipv6.src.mid"]["cur"]
+	output += self.obj_dict["ipv6.src.suf"]["cur"]
+	output += self.obj_dict["ipv6.dst.pre"]["cur"]
+	output += self.obj_dict["ipv6.dst.mid"]["cur"]
+	output += self.obj_dict["ipv6.dst.suf"]["cur"]
+	output += tools.pack_with_length(len(input),32)
+	output += b'\x00\x00\x00'
+	output += self.obj_dict["ipv6.hop_opt.nxt"]["cur"]
+	output += input
+	
+	#print(output)
+
+	return output
+
+functions = [
+	length("ipv6.plen", "ipv6.hop_opt.nxt", "icmpv6.mldr.mar01.multicast_address.end"),
+	lambda2_csum("icmpv6.csum", "icmpv6.type", "icmpv6.mldr.mar01.multicast_address.end", "inet", icmpv6csum, lambda x, y: y)
+]

@@ -1,0 +1,49 @@
+name = "usb_device_descriptor"
+
+objects = [
+     field("bLength", 8, b"\x09", "std"),
+     field("bDescriptorType", 8, b"\x02", "std"),
+     field("wTotalLength", None, b"\x00\x22", "std"),
+     field("bNumInterfaces", 8, b"\x02", "std"),
+     field("bConfigurationValue", 8, b"\x01", "std"),
+     field("iConfiguration", 8, b"\x04", "std"),
+     field("bmAttributes", 8, b"\x80", "std"),
+     field("MaxPower", 8, b"\xfa", "std"),
+     
+     #Interface Descriptor
+     field("bLength2", 8, b"\x09", "std"),
+     field("bDescriptorType2", 8, b"\x04", "std"),
+     field("bInterfaceNumber", 8, b"\x00", "std"),
+     field("bAlternateSetting", 8, b"\x00", "std"),
+     field("bNumEndpoints", 8, b"\x01", "std"),
+     field("bInterfaceClass", 8, b"\xff", "std"),
+     field("bInterfaceSubClass", 8, b"\xff", "std"),
+     field("bInterfaceProtocol", 8, b"\xff", "std"),
+     field("iInterface", 8, b"\x05", "std"),
+     
+     #Endpoit Descriptor
+     field("bLength3", 8, b"\x07", "std"),
+     field("bDescriptorType3", 8, b"\x05", "std"),
+     field("bEndpointAddress", 8, b"\x81", "std"),
+     field("bmAttributes2", 8, b"\x02", "std"),
+     field("wMaxPacketSize", 8*2, b"\x02\x00", "std"),
+     field("bInterval", 8, b"\x00", "std"),
+     
+     #Interface Descriptor 2
+     field("bLength4", 8, b"\x0a", "std"),
+     field("bDescriptorType4", 8, b"\x06", "std"),
+     field("bInterfaceNumber2", 8, b"\x01", "std"),
+     field("bAlternateSetting2", 8, b"\x00", "std"),
+     field("bNumEndpoints2", 8, b"\x01", "std"),
+     field("bInterfaceClass2", 8, b"\xff", "std"),
+     field("bInterfaceSubClass2", 8, b"\xff", "std"),
+     field("bInterfaceProtocol2", 8, b"\xff", "std"),
+     field("iInterface2", 8, b"\x05", "std"),
+    ]
+
+functions = [
+    length("bLength", "bLength", "MaxPower"),
+    length("bLength2", "bLength2", "iInterface"),
+    length("bLength3", "bLength3", "wMaxPacketSize"),
+    length("bLength4", "bLength4", "iInterface2"),
+]

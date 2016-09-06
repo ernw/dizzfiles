@@ -1,0 +1,15 @@
+name = "gtpv1_test"
+
+objects = [ 
+#Header  
+    field('flags',  8,  b'\x32',        full),
+	field('type',   8,  b'\x01',        full),
+	field('len',    16, b'\x00\x00',    std),
+	field('TEID',   32, b'\x00' * 4,    std),
+#Echo Req	
+    field('seq',    16, b'\x0c\x3d',    std),
+	field('NPDU_No',8,  b'\x00',        std),
+	field('next',   8,  b'\x00',        full)
+]
+
+functions = [ length('len','TEID','TEID')]

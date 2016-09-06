@@ -1,0 +1,97 @@
+#~ # Disk DescriptorFile
+#~ version=1
+#~ encoding="UTF-8"
+#~ CID=fffffffe
+#~ parentCID=ffffffff
+#~ isNativeSnapshot="no"
+#~ createType="vmfs"
+#~ 
+#~ # Extent description
+#~ RW 40960 VMFS "ts_2vmdk-flat.vmdk"
+#~ 
+#~ # The Disk Data Base
+#~ #DDB
+#~ 
+#~ ddb.virtualHWVersion = "8"
+#~ ddb.longContentID = "c818e173248456a9f5d83051fffffffe"
+#~ ddb.uuid = "60 00 C2 94 23 7b c1 41-51 76 b2 79 23 b5 3c 93"
+#~ ddb.geometry.cylinders = "20"
+#~ ddb.geometry.heads = "64"
+#~ ddb.geometry.sectors = "32"
+#~ ddb.adapterType = "buslogic"
+
+
+name = "vmdkfile"
+
+objects = [ 
+    field("descr_comment", None, b"# Disk DescriptorFile\n", none),
+
+    field("version_str", None, b"version=", none),
+    field("version", None, b"1", std),
+    field("version_br", None, b"\n", none),
+    
+    field("encoding_str", None, b"encoding=", none),
+    field("encoding", None, b'"UTF-8"', std),
+    field("encoding_br", None, b"\n", none),
+    
+    field("CID_str", None, b"CID=", none),
+    field("CID", None, b"fffffffe", std),
+    field("CID_br", None, b"\n", none),
+    
+    field("pCID_str", None, b"parentCID=", none),
+    field("pCID", None, b"ffffffff", std),
+    field("pCID_br", None, b"\n", none),
+    
+    field("isNativeSnapshot_str", None, b"isNativeSnapshot=", none),
+    field("isNativeSnapshot", None, b'"no"', std),
+    field("isNativeSnapshot_br", None, b"\n", none),
+    
+    field("createType_str", None, b"createType=", none),
+    field("createType", None, b'"vmfs"', std),
+    field("createType_br", None, b"\n\n", none),
+    
+    field("extent_comment", None, b"# Extent description\n", none),
+    
+    field("pre_description_br", None, b"\n", none),
+    field("mode", None, b"RW", std),
+    field("mode_space", None, b" ", none),
+    field("size", None, b"40960", std),
+    field("size_space", None, " ", none),
+    field("vmfs", None, b"VMFS", std),
+    field("vmfs_space", None, b' "', none),
+    field("filename", None, b"ts_2vmdk-flat.vmdk", std),    
+    field("description_br", None, b'"\n\n', none),
+    
+    field("ddb_comment", None, b"# The Disk Data Base\n#DDB\n", none),
+    
+    field("pre_ddb_br", None, b"\n", none),
+    field("ddb.virtualHWVersion_str", None, b"ddb.virtualHWVersion=", none),
+    field("ddb.virtualHWVersion", None, b'"8"', std),
+    field("ddb.virtualHWVersion_br", None, b"\n", none),
+    
+    field("ddb.longContentID_str", None, b"ddb.longContentID=", none),
+    field("ddb.longContentID", None, b'"c818e173248456a9f5d83051fffffffe"', std),
+    field("ddb.longContentID_br", None, b"\n", none),
+    
+    field("ddb.uuid_str", None, b"ddb.uuid=", none),
+    field("ddb.uuid", None, b'"60 00 C2 94 23 7b c1 41-51 76 b2 79 23 b5 3c 93"', std),
+    field("ddb.uuid_br", None, b"\n", none),
+    
+    field("ddb.geometry.cylinders_str", None, b"ddb.geometry.cylinders=", none),
+    field("ddb.geometry.cylinders", None, b'"20"', std),
+    field("ddb.geometry.cylinders_br", None, b"\n", none),
+    
+    field("ddb.geometry.heads_str", None, b"ddb.geometry.heads=", none),
+    field("ddb.geometry.heads", None, b'"64"', std),
+    field("ddb.geometry.heads_br", None, b"\n", none),
+    
+    field("ddb.geometry.sectors_str", None, b"ddb.geometry.sectors=", none),
+    field("ddb.geometry.sectors", None, b'"32"', std),
+    field("ddb.geometry.sectors_br", None, b"\n", none),
+    
+    field("ddb.adapterType_str", None, b"ddb.adapterType=", none),
+    field("ddb.adapterType", None, b'"buslogic"', std),
+    field("ddb.adapterType_br", None, b"\n", none),            
+    ]
+    
+functions = []

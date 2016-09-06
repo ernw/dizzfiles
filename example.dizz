@@ -1,0 +1,20 @@
+#example dizz
+name = "test"
+
+objects = [
+    field("align-nomod", 8, b"A", "full"),
+    field("len", 8, b"\x05", "none"),
+    field("len2", 8, b"\x00", "none"),
+    field("align-mod", 3, b"B", "full"),
+    field("noalign-mod", 5, b"C", "full"),
+    field("align-nomod2", 8, b"\x00", "std"),
+    field("test1", 16, b"00", "std"),
+    field("value", None, b"test_long_long_string", "std"),
+    link("link1", "value"),
+    rand("random value", 18),
+    ]
+
+functions = [
+    length("len", "align-mod", "value"),
+    lambda_length("len2", "align-nomod", "align-mod", lambda x: x + 2),
+    ]

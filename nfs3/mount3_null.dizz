@@ -1,0 +1,14 @@
+name = "MOUNT_3_NULL"
+
+objects = [   rand('RPC_XID', 32),
+    field('RPC_Message_Type', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Version', 32, b'\x00\x00\x00\x02', 'none'),
+    field('RPC_Program', 32, b'\x00\x01\x86\xa5', 'none'),
+    field('RPC_Program_Version', 32, b'\x00\x00\x00\x03', 'none'),
+    field('RPC_Program_Procedure', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_Flavor', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Flavor', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Length', 32, b'\x00\x00\x00\x00', 'none')]
+
+functions = [   ]

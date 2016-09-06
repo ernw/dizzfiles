@@ -1,0 +1,67 @@
+name = "SOAP Request"
+
+objects = [   
+    field("Method", None, b"POST", "std"),
+    field("Spacer1", 8, b" ", "std"),
+    field("Path", None, b"/asdasd.cgi", "std"),
+    field("Spacer2", 8, b" ", "std"),
+    field("Version", None, b"HTTP/1.1", "std"),
+    field("Break1", 16, b"\r\n", "std"),
+    
+    field("Header1", None, b"Accept-Encoding", "std"),
+    field("Spacer3", 16, b": ", "std"),
+    field("Value1", None, b"gzip,deflate", "std"),
+    field("Break2", 16, b"\r\n", "std"),
+    
+    field("Header2", None, b"Content-Type", "std"),
+    field("Spacer4", 16, b": ", "std"),
+    field("Value2", None, b"text/xml;charset=UTF-8", "std"),
+    field("Break3", 16, b"\r\n", "std"),
+
+    field("Header3", None, b"SOAPAction", "std"),
+    field("Spacer5", 16, b": ", "std"),
+    field("Value3", None, b"\"\"", "std"),
+    field("Break4", 16, b"\r\n", "std"),
+
+    field("Header4", None, b"Content-Length", "std"),
+    field("Spacer6", 16, b": ", "std"),
+    field("Value4", None, b"210", "std"),
+    field("Break5", 16, b"\r\n", "std"),
+
+    field("Header5", None, b"Host", "std"),
+    field("Spacer7", 16, b": ", "std"),
+    field("Value5", None, "localhost:1234", "std"),
+    field("Break6", 16, b"\r\n", "std"),
+
+    field("Header6", None, b"Proxy-Connection", "std"),
+    field("Spacer8", 16, b": ", "std"),
+    field("Value6", None, b"Keep-Alive", "std"),
+    field("Break7", 16, b"\r\n", "std"),
+
+    field("Header7", None, b"User-Agent", "std"),
+    field("Spacer9", 16, b": ", "std"),
+    field("Value7", None, b"Apache-HttpClient/4.1.1 (java 1.5)", "std"),
+    field("Break8", 16, b"\r\n", "std"),
+    field("Break9", 16, b"\r\n", "std"),
+    
+    field("Data0", 8, b"<", "std"),
+    field("Data1", None, b"soapenv:Envelope", "std"),
+    field("Data2", 8, b" ", "std"),
+    field("Data3", None, b"xmlns:soapenv", "std"),
+    field("Data4", 8, b"=", "std"),
+    field("Data5", None, b"\"http://schemas.xmlsoap.org/soap/envelope/\"", "std"),
+    field("Data6", 8, b" ", "std"),
+    field("Data7", None, b"xmlns:urn", "std"),
+    field("Data8", 8, b"=", "std"),
+    field("Data9", None, b"\"urn:asd\"", "std"),
+    field("Data10", 8, b">", "std"),
+    field("Data11", None, b"<soapenv:Header/>", "std"),
+    field("Data12", None, b"<soapenv:Body>", "std"),
+    field("Data14", None, b"</soapenv:Body>", "std"),
+    field("Data15", None, b"</soapenv:Envelope>", "std"),
+    
+    ]
+
+functions = [ 
+                ascii_length("Value4", "Data0", "Data15"),
+            ]

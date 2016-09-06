@@ -1,0 +1,74 @@
+#dhcp discover
+
+def udp_csum_in(self, input):
+    return self.obj_dict["ip_src"]["cur"] + self.obj_dict["ip_dst"]["cur"] + "\x00" + self.obj_dict["ip_prot"]["cur"] + self.obj_dict["udp_len"]["cur"] + input
+
+name = "dhcp discover"
+
+objects = [
+    field("eth_dst", 48, b"\xff\xff\xff\xff\xff\xff", "none"),
+    field("eth_src", 48, b"\x00\x14\xe2\xab\xe0\x69", "none"),
+    #rand("eth_src", 48),
+    field("eth_type", 16, b"\x08\x00", "none"),
+    
+    field("ip_ver", 4, b"\x04", none),
+    field("ip_hdr_len", 4, b"\x05", none),
+    field("ip_diff_serv", 8, b"\x00", none),
+    field("ip_len", 16, b"\x00\x00", none),
+    rand("ip_id", 16),
+    field("ip_flags", 3, b"\x00", none),
+    field("ip_off", 13, b"\x00\x00", none),
+    field("ip_ttl", 8, b"\xfa", none),
+    field("ip_prot", 8, b"\x11", none),
+    field("ip_csum", 16, b"\x00\x00", none),
+    field("ip_src", 32, b"\x00\x00\x00\x00", none),
+    field("ip_dst", 32, b"\xff\xff\xff\xff", none),
+    
+    field("udp_src", 16, b"\x00\x44", none),
+    field("udp_dst", 16, b"\x00\x43", none),
+    field("udp_len", 16, b"\x00\x00", none),
+    field("udp_csum", 16, b"\x00\x00", none),
+    
+    field("msg-type", 8, b"\x01", none),
+    field("hw-type", 8, b"\x01", none),
+    field("hw-addr-len", 8, b"\x00", none),
+    field("hops", 8, b"\x00", none),
+    rand("transaction-id", 32),
+    field("seconds-elapsed", 16, b"\x00\x00", none),
+    field("bootp-flags", 16, b"\x00\x00", none),
+    field("client-addr", 32, b"\x00\x00\x00\x00", none),
+    field("your-addr", 32, b"\x00\x00\x00\x00", none),
+    field("next-server-addr", 32, b"\x00\x00\x00\x00", none),
+    field("relay-addr", 32, b"\x00\x00\x00\x00", none),
+    link("client-hw-addr", "eth_src"),
+    field("addr-padding", 80, b"\x00" * 10, none),
+    field("server-name", None, b"\x00" * 64, std),
+    field("boot-file", None, b"\x00" * 128, std),
+    field("magic-cookie", 32, b"\x63\x82\x53\x63", none),
+    field("option1-type", 8, b"\x35", none),
+    field("option1-len", 8, b"\x00", none),
+    field("option1-val", None, b"\x01", std),
+    field("option2-type", 8, b"\x3d", none),
+    field("option2-len", 8, b"\x00", none),
+    field("option2-val", None, b"0xfuzzing", std),
+    field("option3-type", 8, b"\x32", none),
+    field("option3-len", 8, b"\x00", none),
+    field("option3-val", None, b"\x00\x00\x00\x00", std),
+    field("option4-type", 8, b"\x37", none),
+    field("option4-len", 8, b"\x00", none),
+    field("option4-val", None, b"\x01\x03\x06\x2a", std),
+    field("end-option", 8, b"\xff", none),
+    field("pad", 304 * 8, b"\x00" * 304, none),
+    ]
+
+functions = [
+    length("option4-len", "option4-val", "option4-val"),
+    length("option3-len", "option3-val", "option3-val"),
+    length("option2-len", "option2-val", "option2-val"),
+    length("option1-len", "option1-val", "option1-val"),
+    length("hw-addr-len", "client-hw-addr", "client-hw-addr"),
+    length("udp_len", "msg-type", "pad"),
+    length("ip_len", "ip_ver", "pad"),
+    lambda2_csum("udp_csum", "udp_src", "pad", "inet", udp_csum_in, lambda x, y: y),
+    csum("ip_csum", "ip_ver", "ip_dst", "inet"),
+    ]

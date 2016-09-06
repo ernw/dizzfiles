@@ -1,0 +1,11 @@
+name = "gtp_echo_request"
+
+objects = [   field('Flags',8,b'\x32','none'),
+	field('Type',8,b'\x01','none'),
+	field('Len',16,b'\x00\x00','none'),
+	field('TEID',32,b'\x00\x00\x00\x00','none'),
+	field('Seq',16,b'\x0c\x3d','none'),
+	field('NPDU_No',8,b'\x00','none'),
+	field('next',8,b'\x00','none')]
+
+functions = [ length('Len','TEID','TEID')]

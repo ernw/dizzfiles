@@ -1,0 +1,41 @@
+import binascii
+
+name = "NFS_3_FSINFO"
+
+filehandle = binascii.unhexlify('4e580000eceb942300000001000000080000000200000002')
+
+objects = [   field('RPC_Fragment_Header', 32, b'\x80\x00\x00\x00', 'none'),
+    rand('RPC_XID', 32),
+    field('RPC_Message_Type', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Version', 32, b'\x00\x00\x00\x02', 'none'),
+    field('RPC_Program', 32, b'\x00\x01\x86\xa3', 'none'),
+    field('RPC_Program_Version', 32, b'\x00\x00\x00\x03', 'none'),
+    field('RPC_Program_Procedure', 32, b'\x00\x00\x00\x13', 'none'),
+    field('RPC_Credentials_Flavor', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    rand('RPC_Credentials_Stamp', 32),
+    field('RPC_Credentials_Machine_Name_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_Machine_Name', None, b'test', 'none'),
+    fill('RPC_Credentials_Machine_Name_Fill', 'RPC_Credentials_Machine_Name', 4, b'\x00'),
+    field('RPC_Credentials_UID', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_GID', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_Num', 32, b'\x00\x00\x00\x0a', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_1', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_2', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_3', 32, b'\x00\x00\x00\x02', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_4', 32, b'\x00\x00\x00\x03', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_5', 32, b'\x00\x00\x00\x04', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_6', 32, b'\x00\x00\x00\x06', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_7', 32, b'\x00\x00\x00\x0a', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_8', 32, b'\x00\x00\x00\x0b', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_9', 32, b'\x00\x00\x00\x1a', 'none'),
+    field('RPC_Credentials_Auxiliary_GID_10', 32, b'\x00\x00\x00\x1b', 'none'),
+    field('RPC_Verifier_Flavor', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    field('NFS_Object1_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    field('NFS_Object1_Filehandle', None, filehandle, 'none')]
+
+functions = [   length('NFS_Object1_Length', 'NFS_Object1_Filehandle', 'NFS_Object1_Filehandle'),
+                length('RPC_Credentials_Machine_Name_Length', 'RPC_Credentials_Machine_Name', 'RPC_Credentials_Machine_Name'),
+                length('RPC_Credentials_Length', 'RPC_Credentials_Stamp', 'RPC_Credentials_Auxiliary_GID_10'),
+                lambda_length('RPC_Fragment_Header', 'RPC_XID', 'NFS_Object1_Filehandle', lambda x: x | 0x80000000)]
