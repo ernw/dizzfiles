@@ -1,0 +1,30 @@
+name = "RENEW"
+
+clientid = None
+
+def setclientid(obj, inp):
+    if int.from_bytes(inp[-20:-16], byteorder='big',signed=False) == 0:
+        global clientid
+        l = len(inp)
+        clientid = inp[l-16:l-8]
+        verifier = inp[l-8:l]
+        for o in obj['dizz'].objects:
+            if o['_name'] == 'Op_CLIENTID':
+                o['cur'] = clientid
+            if o['_name'] == 'Op_VERIFIER':
+                o['cur'] = verifier
+
+def renew(obj, inp):
+    global clientid
+    for o in obj['dizz'].objects:
+        if o['_name'] == 'Clientid':
+            o['cur'] = clientid
+
+objects = [
+    dizz('setclientid', 'dizzes/nfs4/setclientid/setclientid.dizz'),
+    dizz('setclientid_confirm', 'dizzes/nfs4/setclientid/setclientid_confirm.dizz'),
+    dizz('renew', 'dizzes/nfs4/renew/renew.dizz')]
+
+functions = [
+    adv_copy(1, setclientid),
+    adv_copy(2, renew),]

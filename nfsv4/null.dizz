@@ -1,0 +1,18 @@
+name = "NULL"
+
+objects = [
+    field('RPC_Fragment_Header', 32, b'\x80\x00\x00\x00', 'std'),
+    rand('RPC_XID', 32),
+    field('RPC_Message_Type', 32, b'\x00\x00\x00\x00', 'std'),
+    field('RPC_Version', 32, b'\x00\x00\x00\x02', 'std'),
+    field('RPC_Program', 32, b'\x00\x01\x86\xa3', 'std'),
+    field('RPC_Program_Version', 32, b'\x00\x00\x00\x04', 'std'),
+    field('RPC_Program_Procedure', 32, b'\x00\x00\x00\x00', 'std'),
+    field('RPC_Credentials_Flavor', 32, b'\x00\x00\x00\x00', 'std'),
+    field('RPC_Credentials_Length', 32, b'\x00\x00\x00\x00', 'std'),
+    field('RPC_Verifier_Flavor', 32, b'\x00\x00\x00\x00', 'std'),
+    field('RPC_Verifier_Length', 32, b'\x00\x00\x00\x00', 'std')]
+
+functions = [
+    lambda_length("RPC_Fragment_Header", "RPC_Fragment_Header", "RPC_Verifier_Length",
+                  lambda x: (0x80000000 | (x - 4)))]

@@ -1,0 +1,54 @@
+name = "setclientid"
+
+objects = [ field('RPC_Fragment_Header', 32, b'\x80\x00\x00\x00', 'none'),
+    rand('RPC_XID', 32),
+    field('RPC_Message_Type', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Version', 32, b'\x00\x00\x00\x02', 'none'),
+    field('RPC_Program', 32, b'\x00\x01\x86\xa3', 'none'),
+    field('RPC_Program_Version', 32, b'\x00\x00\x00\x04', 'none'),
+    field('RPC_Program_Procedure', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Flavor', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    rand('RPC_Credentials_Stamp', 32),
+    field('RPC_Credentials_Machine_Name_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_Machine_Name', None, b'LinkTed', 'none'),
+    padding("RPC_Credentials_Machine_Name_Padding", "RPC_Credentials_Machine_Name", "RPC_Credentials_Machine_Name", 32, b"\x00"),
+    field('RPC_UID', 32, b'\x00\x00\x00\x00', none),
+    field('RPC_GID', 32, b'\x00\x00\x00\x00', none),
+    field('RPC_Credentials_Auxiliary_GID_Num', 32, b'\x00\x00\x00\x00', 'none'),
+    # field('RPC_Credentials_Auxiliary_GID0', 32, '\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Flavor', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Length', 32, b'\x00\x00\x00\x00', 'none'),
+
+    field('Tag_Length', 32, b'\x00\x00\x00\x00', std),
+    field('Tag', None, b'', std),
+    padding("Tag_Padding", "Tag", "Tag", 32, b'\x00'),
+    field('Minorversion', 32, b'\x00\x00\x00\x00', std),
+    
+    field('Operations_Count', 32, b'\x00\x00\x00\x01', std),
+    
+    field('Op_SETCLIENTID', 32, b'\x00\x00\x00\x23', std),
+        rand('Verifier', 64),
+        field('ID_Length', 32, b'\x00\x00\x00\x00', std),
+        field('ID', None, b'Linux NFSv4.0 192.168.56.1/192.168.56.101 tcp', std),
+        padding("ID_Padding", "ID", "ID", 32, b'\x00'),
+
+        field('CB_Programm', 32, b'\x40\x00\x00\x00', std),
+        field('NetID_Length', 32, b'\x00\x00\x00\x00', std),
+        field('NetID', None, b'tcp', std),
+        padding("NetID_Padding", "NetID", "NetID", 32, b'\x00'),
+        field('AddrID_Length', 32, b'\x00\x00\x00\x00', std),
+        field('AddrID', None, b'192.168.56.1.134.89', std),
+        padding("AddrID_Padding", "AddrID", "AddrID", 32, b'\x00'),
+
+        field('CallbackID', 32, b'\x00\x00\x00\x01', std)
+    ]
+
+functions = [ length('RPC_Credentials_Length', 'RPC_Credentials_Stamp', 'RPC_Credentials_Auxiliary_GID_Num'),
+    length('RPC_Credentials_Machine_Name_Length', 'RPC_Credentials_Machine_Name', 'RPC_Credentials_Machine_Name'),
+    length('Tag_Length', 'Tag', 'Tag'),
+    lambda_length("ID_Length", "ID", "ID", lambda x: x),
+    lambda_length("NetID_Length", "NetID", "NetID", lambda x: x),
+    lambda_length("AddrID_Length", "AddrID", "AddrID", lambda x: x),
+    lambda_length("RPC_Fragment_Header", "RPC_Fragment_Header", "CallbackID", lambda x: (0x80000000 | (x - 4)))
+    ]

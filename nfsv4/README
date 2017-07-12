@@ -1,0 +1,9 @@
+Operationen die mehrere Packete benötigen haben einen eigenen Ordner im nfs4/ Ordner mit genau einer .act Datei
+z.B. (nfs4/open/open.act).
+Alle andere Operation sind im nfs4/(*.dizz) Ordner.
+
+Eine Liste aller Operationen von NFS4:
+https://tools.ietf.org/html/rfc7530#section-16
+
+INFO: src port muss < 1024 sein.
+

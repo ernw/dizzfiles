@@ -1,0 +1,46 @@
+name = 'LOOKUPP'
+
+objects = [
+    field('RPC_Fragment_Header', 32, b'\x80\x00\x00\x00', 'none'),
+    rand('RPC_XID', 32),
+    field('RPC_Message_Type', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Version', 32, b'\x00\x00\x00\x02', 'none'),
+    field('RPC_Program', 32, b'\x00\x01\x86\xa3', 'none'),
+    field('RPC_Program_Version', 32, b'\x00\x00\x00\x04', 'none'),
+    field('RPC_Program_Procedure', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Flavor', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    rand('RPC_Credentials_Stamp', 32),
+    field('RPC_Credentials_Machine_Name_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_Machine_Name', None, b'LinkTed', 'none'),
+    padding("RPC_Credentials_Machine_Name_Padding",
+            "RPC_Credentials_Machine_Name", "RPC_Credentials_Machine_Name", 32, b"\x00"),
+    field('RPC_UID', 32, b'\x00\x00\x00\x00', none),
+    field('RPC_GID', 32, b'\x00\x00\x00\x00', none),
+    field('RPC_Credentials_Auxiliary_GID_Num', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Auxiliary_GID0', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Flavor', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Length', 32, b'\x00\x00\x00\x00', 'none'),
+
+    field('Tag_Length', 32, b'\x00\x00\x00\x00', std),
+    field('Tag', None, b'Dizzy', std),
+    padding("Tag_Padding", "Tag", "Tag", 32, b'\x00'),
+    field('Minorversion', 32, b'\x00\x00\x00\x00', std),
+
+    field('Operations_Count', 32, b'\x00\x00\x00\x03', std),
+
+    field('Op_PUTROOTFH', 32, b'\x00\x00\x00\x18', std),
+
+    field('Op_LOOKUP', 32, b'\x00\x00\x00\x0f', std),
+        field('Name_Length', 32, b'\x00\x00\x00\x00', std),
+        field('Name', None, b'pentest1_fs', std),  # Name des Mountpoint ohne /
+        padding("Name_Padding", "Name", "Name", 32, b"\x00"),
+
+    field('Op_LOOKUPP', 32, b'\x00\x00\x00\x10', std)]
+
+functions = [
+    length('RPC_Credentials_Machine_Name_Length', 'RPC_Credentials_Machine_Name', 'RPC_Credentials_Machine_Name'),
+    length('RPC_Credentials_Length', 'RPC_Credentials_Stamp', 'RPC_Credentials_Auxiliary_GID0'),
+    lambda_length("RPC_Fragment_Header", "RPC_Fragment_Header", "Op_LOOKUPP", lambda x: (0x80000000 | (x - 4))),
+    length('Tag_Length', 'Tag', 'Tag'),
+    length('Name_Length', 'Name', 'Name')]

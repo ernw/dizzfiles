@@ -1,0 +1,64 @@
+name = "READ"
+
+clientid = None
+stateid = None
+filehandle = None
+
+def setclientid(obj, inp):
+    if int.from_bytes(inp[-20:-16], byteorder='big',signed=False) == 0:
+        global clientid
+        l = len(inp)
+        clientid = inp[l-16:l-8]
+        verifier = inp[l-8:l]
+        for o in obj['dizz'].objects:
+            if o['_name'] == 'Op_CLIENTID':
+                o['cur'] = clientid
+            elif o['_name'] == 'Op_VERIFIER':
+                o['cur'] = verifier
+
+def setclientid_confirm(obj, inp):
+    global clientid
+    for o in obj['dizz'].objects:
+        if o['_name'] == 'Clientid':
+            o['cur'] = clientid
+
+
+def open_(obj, inp):
+    if int.from_bytes(inp[68:72], byteorder='big', signed=False) == 0:
+        global stateid
+        stateid = inp[76:88]
+
+        for o in obj['dizz'].objects:
+            if o['_name'] == 'Stateid':
+                o['cur'] = stateid
+
+        if int.from_bytes(inp[128:132], byteorder='big', signed=False) == 0:
+            global  filehandle
+            filehandle_length = int.from_bytes(inp[132:136], byteorder='big', signed=False)
+            filehandle = inp[136:(136+filehandle_length)]
+
+            for o in obj['dizz'].objects:
+                if o['_name'] == 'Filehandle':
+                    o['cur'] = filehandle
+
+def open_confirm(obj, inp):
+    global filehandle, stateid
+    for o in obj['dizz'].objects:
+        if o['_name'] == 'Filehandle':
+            o['cur'] = filehandle
+        elif o['_name'] == 'Stateid':
+            o['cur'] = stateid
+
+objects = [
+    dizz('setclientid', 'dizzes/nfs4/setclientid/setclientid.dizz'),
+    dizz('setclientid_confirm', 'dizzes/nfs4/setclientid/setclientid_confirm.dizz'),
+    dizz('open', 'dizzes/nfs4/open_confirm/open.dizz'),
+    dizz('open_confirm', 'dizzes/nfs4/open_confirm/open_confirm.dizz'),
+    dizz('write', 'dizzes/nfs4/read/read.dizz')
+    ]
+
+functions = [
+    adv_copy(1, setclientid),
+    adv_copy(2, setclientid_confirm),
+    adv_copy(3, open_),
+    adv_copy(4, open_confirm)]

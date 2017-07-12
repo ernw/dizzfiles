@@ -1,0 +1,78 @@
+name = 'LINK'
+
+objects = [
+    field('RPC_Fragment_Header', 32, b'\x80\x00\x00\x00', 'none'),
+    rand('RPC_XID', 32),
+    field('RPC_Message_Type', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Version', 32, b'\x00\x00\x00\x02', 'none'),
+    field('RPC_Program', 32, b'\x00\x01\x86\xa3', 'none'),
+    field('RPC_Program_Version', 32, b'\x00\x00\x00\x04', 'none'),
+    field('RPC_Program_Procedure', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Flavor', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    rand('RPC_Credentials_Stamp', 32),
+    field('RPC_Credentials_Machine_Name_Length', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Credentials_Machine_Name', None, b'LinkTed', 'none'),
+    padding("RPC_Credentials_Machine_Name_Padding",
+            "RPC_Credentials_Machine_Name", "RPC_Credentials_Machine_Name", 32, b"\x00"),
+    field('RPC_UID', 32, b'\x00\x00\x00\x00', none),
+    field('RPC_GID', 32, b'\x00\x00\x00\x00', none),
+    field('RPC_Credentials_Auxiliary_GID_Num', 32, b'\x00\x00\x00\x01', 'none'),
+    field('RPC_Credentials_Auxiliary_GID0', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Flavor', 32, b'\x00\x00\x00\x00', 'none'),
+    field('RPC_Verifier_Length', 32, b'\x00\x00\x00\x00', 'none'),
+
+    field('Tag_Length', 32, b'\x00\x00\x00\x00', std),
+    field('Tag', None, b'Dizzy', std),
+    padding("Tag_Padding", "Tag", "Tag", 32, b'\x00'),
+    field('Minorversion', 32, b'\x00\x00\x00\x00', std),
+
+    field('Operations_Count', 32, b'\x00\x00\x00\x09', std),
+
+    field('Op_PUTROOTFH0', 32, b'\x00\x00\x00\x18', std),
+
+    field('Op_LOOKUP0', 32, b'\x00\x00\x00\x0f', std),
+        field('Name_Length0', 32, b'\x00\x00\x00\x00', std),
+        field('Name0', None, b'pentest1_fs', std),  # Name des Mountpoint ohne /
+        padding("Name_Padding0", "Name0", "Name0", 32, b"\x00"),
+
+    field('Op_LOOKUP1', 32, b'\x00\x00\x00\x0f', std),
+        field('Name_Length1', 32, b'\x00\x00\x00\x00', std),
+        field('Name1', None, b'pentest1_quota', std),
+        padding("Name_Padding1", "Name1", "Name1", 32, b"\x00"),
+    
+    field('Op_LOOKUP12', 32, b'\x00\x00\x00\x0f', std),
+        field('Name_Length12', 32, b'\x00\x00\x00\x00', std),
+        field('Name12', None, b'test', std),
+        padding("Name_Padding12", "Name12", "Name12", 32, b"\x00"),
+
+    field('Op_SAFEFH', 32, b'\x00\x00\x00\x20', std),
+
+    field('Op_PUTROOTFH1', 32, b'\x00\x00\x00\x18', std),
+
+    field('Op_LOOKUP2', 32, b'\x00\x00\x00\x0f', std),
+        field('Name_Length2', 32, b'\x00\x00\x00\x00', std),
+        field('Name2', None, b'pentest1_fs', std),  # Name des Mountpoint ohne /
+        padding("Name_Padding2", "Name2", "Name2", 32, b"\x00"),
+
+    field('Op_LOOKUP22', 32, b'\x00\x00\x00\x0f', std),
+        field('Name_Length22', 32, b'\x00\x00\x00\x00', std),
+        field('Name22', None, b'pentest1_quota', std),  # Name des Mountpoint ohne /
+        padding("Name_Padding22", "Name2", "Name2", 32, b"\x00"),
+        
+    field('Op_READLINK', 32, b'\x00\x00\x00\x0b', std),
+        field('Link_Name_Length', 32,  b'\x00\x00\x00\x00', std),
+        field('Link_Name', None, b'test_link', std),
+        padding('Link_Name_Padding', 'Link_Name', 'Link_Name', 32, b'\x00')]
+
+functions = [
+    length('RPC_Credentials_Machine_Name_Length', 'RPC_Credentials_Machine_Name', 'RPC_Credentials_Machine_Name'),
+    length('RPC_Credentials_Length', 'RPC_Credentials_Stamp', 'RPC_Credentials_Auxiliary_GID0'),
+    lambda_length("RPC_Fragment_Header", "RPC_Fragment_Header", "Link_Name_Padding", lambda x: (0x80000000 | (x - 4))),
+    length('Tag_Length', 'Tag', 'Tag'),
+    length('Name_Length0', 'Name0', 'Name0'),
+    length('Name_Length1', 'Name1', 'Name1'),
+    length('Name_Length12', 'Name12', 'Name12'),
+    length('Name_Length2', 'Name2', 'Name2'),
+    length('Name_Length22', 'Name22', 'Name22'),
+    length('Link_Name_Length', 'Link_Name', 'Link_Name')]
