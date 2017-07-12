@@ -1,3 +1,4 @@
+#Sponsored by DTAG
 name = "delegpurge"
 
 objects = [ field('RPC_Fragment_Header', 32, b'\x80\x00\x00\x00', 'none'),
