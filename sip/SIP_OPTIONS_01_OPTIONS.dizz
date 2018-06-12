@@ -1,0 +1,31 @@
+#Sponsored by DTAG
+name = "SIP_OPTIONS_01_OPTIONS_FUZZ"
+format = 2
+# transport: tcp, 1 answer
+
+objects = ["""OPTIONS tel:""", List("opt_tel_value",  config_value('opt_callee_number')),""" SIP/2.0""", Field('1', b'\x0d\x0a'),\
+           """Via: SIP/2.0/TCP """, List("opt_via_ip",  config_value('opt_caller_ip')),""":""", List("opt_via_port",  config_value('opt_caller_port')),""";branch=""", Field("via_branch",  "z9hG4bK840346f648c3926b14cb321509f77398"),"""""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List("opt_max_forwards_value",  "70"),"""""", Field('3', b'\x0d\x0a'),\
+           """From: <""", List("opt_from_proto", "sip"),""":+491234567101@domain1.domain.com;User=phone>;tag""", Field('from_tag', b'7d14fe15a11e56a5923e63269e487b57'), """=""", Field('4', b'\x0d\x0a'),\
+           """To: <""", List("opt_to_tel",  "tel"),""":""", List("opt_to_tel_value",  config_value('opt_callee_number')),""">""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field("call_id",  "16ad5342a146b07af74e5bf6eb6b2f10"),"""""", Field('6', b'\x0d\x0a'),\
+           """CSeq: """, Field("cseq",  "14212"),""" """, List("opt_cseq_verb",  "OPTIONS"),"""""", Field('7', b'\x0d\x0a'),\
+           """Contact: <""", List("opt_contact_proto",  "sip"),""":""", List("opt_contact_ip",  config_value('opt_caller_ip')),""":""", List("opt_contact_port",  "21001"),""">""", Field('8', b'\x0d\x0a'),\
+           """Content-Length: """, List("opt_content_length_value",  "0"),"""""", Field('9', b'\x0d\x0a'),\
+           """""", Field('10', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answer
+
+# SIP/2.0 200 OK
+# Via: SIP/2.0/TCP IP:PORT;branch=z9hG4bK840346f648c3926b14cb321509f77398
+# Record-Route: <sip:IP:PORT;transport=tcp;lr;Ssrpt=79a0_116;TRC=ffffffff-ffffffff;CxtId=3;TgId=5>
+# Call-ID: 16ad5342a146b07af74e5bf6eb6b2f10
+# From: <sip:NUMBER@URI;user=phone>;tag=7d14fe15a11e56a5923e63269e487b57
+# To: <tel:NUMBER>;tag=a2780cc613eb3c6b4e6166a66c628a5d
+# CSeq: 14212 OPTIONS
+# Content-Length: 0
+
+functions = [
+
+    ]

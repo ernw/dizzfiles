@@ -1,0 +1,26 @@
+#Sponsored by DTAG
+name = "SIP_INFO_05_BYE"
+format = 2
+# transport: TCP, 1 answer
+
+objects = ["""BYE sip:1.2.111.156:21003 SIP/2.0""", Field('1', b'\x0d\x0a'),\
+           """Via: SIP/2.0/TCP 1.2.111.157:21005;branch=""", Field('via_branch', b'z9hG4bK70f44882c1f0f982b4d9acad6d8b4708'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: 70""", Field('3', b'\x0d\x0a'),\
+           """From: <sip:+491234567103@domain1.domain.com;User=phone>;tag=e17cfd3e7c3cc581c710701885e18e56""", Field('4', b'\x0d\x0a'),\
+           """To: <tel:+491234567102>;tag=57519fb66b1747507e7644c5e82dd5f1""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'9aeb71ac8cb9ad725a635580c23f4baf'), """""", Field('6', b'\x0d\x0a'),\
+           """Cseq: """, Field('cseq', b'5839'), """ BYE""", Field('7', b'\x0d\x0a'),\
+           """Content-Length: 0""", Field('8', b'\x0d\x0a'),\
+           """Route:<sip:1.2.98.47:21005;transport=tcp;lr;Ssrpt=79a0_116;TRC=ffffffff-ffffffff;X-HwB2bUaCookie=25;CxtId=3;TgId=5>""", Field('9', b'\x0d\x0a'),\
+           """""", Field('10', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 200 OK
+
+
+
+functions = [
+
+    ]

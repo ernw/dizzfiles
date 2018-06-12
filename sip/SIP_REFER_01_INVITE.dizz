@@ -1,0 +1,36 @@
+#Sponsored by DTAG
+name = "SIP_REFER_01_INVITE"
+format = 2
+# transport: TCP, 2 answers
+
+objects = ["""INVITE tel:+491234567102 SIP/2.0""", Field('1', b'\x0d\x0a'),\
+           """Via: SIP/2.0/TCP 1.2.111.157:21005;branch=""", Field('via_branch', b'z9hG4bKc519f672e4a9451ff9ccd282d779fb79'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: 70""", Field('3', b'\x0d\x0a'),\
+           """From: <sip:+491234567103@domain1.domain.com;User=phone>; tag=""", Field('from_tag', b'c21719377beb5e9d3fab8214986807a1'), """""", Field('4', b'\x0d\x0a'),\
+           """To: <tel:+491234567102>""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'bd6469266f4190b1977b165cd1a0250c'), """""", Field('6', b'\x0d\x0a'),\
+           """CSeq: """, Field('cseq', b'13812'), """ INVITE""", Field('7', b'\x0d\x0a'),\
+           """Supported: 100rel""", Field('8', b'\x0d\x0a'),\
+           """Contact: <sip:1.2.111.157:21005>""", Field('9', b'\x0d\x0a'),\
+           """Content-Length: 154""", Field('10', b'\x0d\x0a'),\
+           """Content-Type:application/sdp""", Field('11', b'\x0d\x0a'),\
+           """P-Asserted-Identity:"SSR"<tel:+491234567103>""", Field('12', b'\x0d\x0a'),\
+           """""", Field('13', b'\x0d\x0a'),\
+           """v=0""", Field('14', b'\x0d\x0a'),\
+           """o=Spider-Phone 457641636 457641636 IN IP4 1.2.111.157""", Field('15', b'\x0d\x0a'),\
+           """s=Spider-Phone""", Field('16', b'\x0d\x0a'),\
+           """c=IN IP4 1.2.111.157""", Field('17', b'\x0d\x0a'),\
+           """t=0 0""", Field('18', b'\x0d\x0a'),\
+           """m=audio 21010 RTP/AVP 0""", Field('19', b'\x0d\x0a'),\
+           """a=rtpmap:0 PCMU/8000""", Field('20', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 100 Trying
+# 183 Session Progress
+
+
+functions = [
+
+    ]

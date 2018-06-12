@@ -1,0 +1,26 @@
+#Sponsored by DTAG
+name = "SIP_PUBLISH_01_PUBLISH_FUZZ"
+format = 2
+# transport: TCP, 1 answer
+
+objects = ["""PUBLISH tel:""", List('header_callee_number', b'+491234567102'), """ SIP/2.0""", Field('1', b'\x0d\x0a'),\
+           """Via: """, List('via_sip', b'SIP'), """/""", List('via_version', b'2.0'), """/""", List('via_transport', b'TCP'), """ """, List('via_caller_ip', b'1.2.111.157'), """:""", List('via_caller_port', b'21005'), """;branch=""", Field('via_branch', b'z9hG4bK29bdeba9c496c00e031d58dfe993e2e5'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List('max_forwards_value', b'70'), """""", Field('3', b'\x0d\x0a'),\
+           """From: <sip:""", List('from_sip_caller_number', b'+491234567103'), """@""", List('from_sip_caller_domain', b'domain1.domain.com'), """;User=""", List('from_user_value', b'phone'), """>;tag=""", Field('from_tag', b'08296b2adf50f8dbb42474ff75e54b04'), """""", Field('4', b'\x0d\x0a'),\
+           """To: <tel:""", List('to_callee_number', b'+491234567102'), """>""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'c5e2b74892a738fcd104f21457fc0297'), """""", Field('6', b'\x0d\x0a'),\
+           """CSeq: """, Field('cseq', b'13999'), """ PUBLISH""", Field('7', b'\x0d\x0a'),\
+           """Event: """, List('event_value', b'presence'), """""", Field('8', b'\x0d\x0a'),\
+           """Expires: """, List('expires_value', b'60'), """""", Field('9', b'\x0d\x0a'),\
+           """Content-Length: """, List('content_length_value', b'0'), """""", Field('10', b'\x0d\x0a'),\
+           """""", Field('11', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 200 OK
+
+
+functions = [
+
+    ]

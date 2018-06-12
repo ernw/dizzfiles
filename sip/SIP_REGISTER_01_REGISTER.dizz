@@ -1,0 +1,31 @@
+#Sponsored by DTAG
+name = "SIP_REGISTER_01_REGISTER"
+format = 2
+# transport: TCP, 1 answer
+
+
+objects = ["""REGISTER sip:""", List('header_sip_domain', b'domain.com'), """ SIP/2.0""", Field('1', b'\x0d\x0a'),\
+           """Via: """, List('via_sip', b'SIP'), """/""", List('via_sip_version', b'2.0'), """/""", List('via_sip_protocoll', b'SCTP'), """ """, List('via_ip', b'1.2.111.156'), """:""", List('via_port', b'22001'), """;branch=""", Field('via_branch', b'z9hG4bK6300d209b39ac45d09372897454038382'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List('max_forwards_value', b'2'), """""", Field('3', b'\x0d\x0a'),\
+           """From: <sip:""", List('from_sip_id', b'460005183800201'), """@""", List('from_sip_domain', b'domain.com'), """>;tag=""", Field('from_tag', b'85e576955a53092091fe5bfa0ad3ea8e'), """""", Field('4', b'\x0d\x0a'),\
+           """To: <sip:""", List('to_sip_id', b'460005183800201'), """@""", List('to_sip_domain', b'domain.com'), """>""", Field('5', b'\x0d\x0a'),\
+           """Contact: <sip:""", List('contact_sip_number', b'+491234567001'), """@""", List('contact_sip_ip', b'1.2.111.156'), """:""", List('contact_sip_port', b'5060'), """;expires=""", List('contact_expires_value', b'3600'), """>""", Field('6', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'f3188a8090e3400e80c39521df176e2e'), """""", Field('7', b'\x0d\x0a'),\
+           """Authorization: """, List('auth_method', b'Digest'), """ username=\"""", List('auth_username', b'460005183800201'), """@""", List('auth_domain', b'domain1.domain.com'), """\",uri=\"""", List('auth_uri_proto', b'sip'), """:""", List('auth_uri_domain', b'domain.com'), """\",realm=\"""", List('auth_uri_realm', b'domain.com'), """\",algorithm=""", List('auth_uri_algorithm', b'AKAv1-MD5'), """""", Field('8', b'\x0d\x0a'),\
+           """CSeq: """, Field('cseq', b'35567'), """ """, List('cseq_verb', b'REGISTER'), """""", Field('9', b'\x0d\x0a'),\
+           """Supported: """, List('supported_value', b'path'), """""", Field('10', b'\x0d\x0a'),\
+           """Content-Length: """, List('contant_length_value', b'0'), """""", Field('11', b'\x0d\x0a'),\
+           """Path:<""", List('path_proto', b'sip'), """:""", List('path_addr', b'pcscf01'), """@""", List('path_uri', b'domain1.domain.com'), """;""", List('path_lr', b'lr'), """>""", Field('12', b'\x0d\x0a'),\
+           """""", Field('13', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 403 Unauthorized
+
+
+
+
+functions = [
+
+    ]

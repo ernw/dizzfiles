@@ -1,0 +1,19 @@
+#Sponsored by DTAG
+name = "CANCEL_02_CANCEL_FUZZ"
+format = 2
+
+objects="""CANCEL tel:""", List('header_callee_number', b'+491234567002'), """ SIP/2.0""", Field('1' , '\x0d\x0a'),\
+"""Via: """, List('via_sip', b'SIP'), """/""", List('via_version', b'2.0'), """/""", List('via_transport', b'UDP'), """ """, List('via_ip', b'1.2.111.156'), """:""", List('via_port', b'5060'), """;branch=""", Field('via_branch', b'z9hG4bK589e7367df1cad545afd0c1184785652'), Field('2' , '\x0d\x0a'),\
+"""Max-Forwards: """, List('max_forwards_value', b'70'), Field('3' , '\x0d\x0a'),\
+"""From: <sip:""", List('from_sip_caller_number', b'+491234567001'), """@""", List('from_sip_caller_domain', b'domain1.domain.com'), """>;tag=""", Field('from_tag', b'db9896eb144e93dd4581ab9cd3724d64'), Field('4' , '\x0d\x0a'),\
+"""To: <tel:""", List('to_sip_callee_number', b'+491234567002'), """>;tag=""", Field('to_tag', b'f5e8f7393b330c2a7167a5d41150e47a'), Field('5' , '\x0d\x0a'),\
+"""Call-ID: """, Field('call_id', b'8eef4845fd67c16a4c03e856f57be2cc'), Field('6' , '\x0d\x0a'),\
+"""Cseq: """, Field('cseq', b'41353'), """ """, List('cseq_verb', b'CANCEL'), Field('7' , '\x0d\x0a'),\
+"""Content-Length: """, List('content_length_value', b'0'), Field('8' , '\x0d\x0a'),\
+Field('9' , '\x0d\x0a'),\
+""""""
+
+
+functions = [
+
+    ]

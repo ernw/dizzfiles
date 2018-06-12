@@ -1,0 +1,29 @@
+#Sponsored by DTAG
+name = "SIP_SUBSCRIBE_01_SUBSCRIBE"
+format = 2
+# transport: tcp, 1 answer
+
+objects = ["""SUBSCRIBE """, List('header_proto', b'sip'), """:""", List('header_number', b'+491234567102'), """@""", List('header_domain', b'domain1.domain.com'), """;User=""", List('header_user_value', b'phone'), """ """, List('header_sip', b'SIP'), """/""", List('header_sip_version', b'2.0'), """""", Field('1', b'\x0d\x0a'),\
+           """Via: """, List('via_sip', b'SIP'), """/""", List('via_sip_version', b'2.0'), """/""", List('via_sip_proto', b'TCP'), """ """, List('via_ip', b'1.2.111.157'), """:""", List('via_port', b'21005'), """;branch=""", Field('via_branch', b'z9hG4bK91dde45958276632d13e0d6ef6c1ee8a'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List('max_forwards_value', b'70'), """""", Field('3', b'\x0d\x0a'),\
+           """From: <""", List('from_proto', b'sip'), """:""", List('from_number', b'+491234567103'), """@""", List('from_domain', b'domain1.domain.com'), """;User=""", List('from_user_value', b'phone'), """>;tag=""", Field('from_tag', b'ec87d086c075f1f9ffffe8a4b2740216'), """""", Field('4', b'\x0d\x0a'),\
+           """To: <""", List('to_proto', b'sip'), """:""", List('to_number', b'+491234567102'), """@""", List('to_domain', b'domain1.domain.com'), """;User=""", List('to_user_value', b'phone'), """>""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'4d8f221db735d28fd7406ef6ba50f98d'), """""", Field('6', b'\x0d\x0a'),\
+           """CSeq: """, Field('cseq', b'47218'), """ SUBSCRIBE""", Field('7', b'\x0d\x0a'),\
+           """Event: """, List('event_value', b'ua-profile'), """""", Field('8', b'\x0d\x0a'),\
+           """Expires: """, List('expires_value', b'3600'), """""", Field('9', b'\x0d\x0a'),\
+           """Contact: <""", List('contact_proto', b'sip'), """:""", List('contact_ip', b'1.2.111.157'), """:""", List('contact_port', b'21005'), """>""", Field('10', b'\x0d\x0a'),\
+           """Content-Length: """, List('content_length_value', b'0'), """""", Field('11', b'\x0d\x0a'),\
+           """P-Asserted-Identity:<""", List('p_ass_id_proto', b'sip'), """:""", List('p_ass_id_number', b'+491234567102'), """@""", List('p_ass_id_domain', b'domain1.domain.com'), """>""", Field('12', b'\x0d\x0a'),\
+           """""", Field('13', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 200 OK
+
+
+
+functions = [
+
+    ]

@@ -1,0 +1,31 @@
+#Sponsored by DTAG
+name = "SIP_IPPAB_02_PRACK"
+format = 2
+
+#Transport udp
+
+
+
+objects = ["""PRACK """, List('header_proto', b'sip'), """:""", List('header_ip', b'1.2.111.157'), """:""", List('header_port', b'5060'), """ """, List('header_sip', b'SIP'), """/""", List('header_sip_version', b'2.0'), """""", Field('1', b'\x0d\x0a'),\
+           """Via: """, List('via_sip', b'SIP'), """/""", List('via_sip_version', b'2.0'), """/""", List('via_sip_transport', b'UDP'), """ """, List('via_sip_ip', b'1.2.111.156'), """:""", List('via_sip_port', b'5060'), """;branch=""", Field('via_branch', b'z9hG4bK5dbaba2fa86412f0efdc1285396130a0'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List('max_forwards_value', b'70'), """""", Field('3', b'\x0d\x0a'),\
+           """From: """, List('from_user_id', b'13900000084'), """<""", List('from_proto', b'sip'), """:""", List('from_number', b'+13900000084'), """@""", List('from_domain', b'domain1.domain.com'), """;user=""", List('from_user_value', b'phone'), """>;tag=""", Field('from_tag', b'77740ed47d019eb841675a2bd6601a5a'), """""", Field('4', b'\x0d\x0a'),\
+           """To: """, List('to_user_id', b'13900000166'), """<""", List('to_proto', b'sip'), """:""", List('to_ip', b'1.2.111.157'), """:""", List('to_port', b'5060'), """>;tag=""", Field('to_tag', b'e3d5b70519b1e7ab3c0d3e4b70045388'), """""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'acb8c2b8b80edf108f047f73846b2326'), """""", Field('6', b'\x0d\x0a'),\
+           """CSeq: """, Field('cseq', b'55126'), """ """, List('cseq_verb', b'PRACK'), """""", Field('7', b'\x0d\x0a'),\
+           """Content-Length: """, List('contant_length_value', b'0'), """""", Field('8', b'\x0d\x0a'),\
+           """RAck:1 """, Field('rack_cseq', b'55125'), """ """, List('rack_verb', b'INVITE'), """""", Field('9', b'\x0d\x0a'),\
+           """Route:<""", List('route_proto', b'sip'), """:""", List('route_ip', b'1.2.98.46'), """:""", List('route_port', b'5060'), """;transport=""", List('route_transport', b'udp'), """;""", List('route_lr', b'lr'), """;Ssrpt=""", List('route_ssrpt', b'79a0_116'), """;TRC=""", List('route_trc', b'7d05-ffffffff'), """;X-HwB2bUaCookie=""", List('route_cookie', b'24'), """;CxtId=""", List('route_context', b'3'), """;TgId=""", List('route_target', b'1'), """>""", Field('10', b'\x0d\x0a'),\
+           """""", Field('11', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 200 OK
+# 180 Ringing
+
+
+
+functions = [
+
+    ]

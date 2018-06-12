@@ -1,0 +1,28 @@
+#Sponsored by DTAG
+name = "SIP_REFER_04_REFER_FUZZ"
+format = 2
+# transport: TCP, 2 answer
+
+objects = ["""REFER sip:""", List('header_sip_caller_ip', b'1.2.111.156'), """:""", List('header_sip_caller_port', b'21003'), """ SIP/""", List('header_sip_version', b'2.0'), """""", Field('1', b'\x0d\x0a'),\
+           """Via: """, List('via_sip', b'SIP'), """/""", List('via_sip_version', b'2.0'), """/""", List('via_sip_transport', b'TCP'), """ 1.2.111.157:21005;branch=""", Field('via_branch', b'z9hG4bK0d6c00987efe5d6377e029552591de64'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List('max_forwards_value', b'70'), """""", Field('3', b'\x0d\x0a'),\
+           """From: <sip:""", List('from_sip_caller_number', b'+491234567103'), """@""", List('from_sip_caller_domain', b'domain1.domain.com'), """;User=""", List('from_sip_user_value', b'phone'), """>;tag=""", Field('from_tag', b'c21719377beb5e9d3fab8214986807a1'), """""", Field('4', b'\x0d\x0a'),\
+           """To: <tel:""", List('to_callee_number', b'+491234567102'), """>;tag=""", Field('to_tag', b'b4b0ec07369e5f8cbff5955be698ca55'), """""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'bd6469266f4190b1977b165cd1a0250c'), """""", Field('6', b'\x0d\x0a'),\
+           """Cseq: """, Field('cseq', b'13815'), """ REFER""", Field('7', b'\x0d\x0a'),\
+           """Contact: <sip:""", List('contact_sip_ip', b'1.2.111.157'), """:""", List('contact_sip_port', b'21005'), """>""", Field('8', b'\x0d\x0a'),\
+           """Refer-To: <tel:""", List('refer_to_number', b'+491234567105'), """;method=""", List('refer_to_method', b'INVITE'), """>""", Field('9', b'\x0d\x0a'),\
+           """Content-Length: """, List('contant_length_value', b'0'), """""", Field('10', b'\x0d\x0a'),\
+           """Route:<sip:""", List('route_sip_ip', b'1.2.98.47'), """:""", List('reoute_sip_port', b'21005'), """;transport=""", List('route_transport_value', b'tcp'), """;""", List('route_lr', b'lr'), """;Ssrpt=""", List('route_ssrpt', b'79a0_116'), """;TRC=""", List('route_trc', b'ffffffff-ffffffff'), """;X-HwB2bUaCookie=""", List('route_cookie', b'26'), """;CxtId=""", List('route_context', b'3'), """;TgId=""", List('route_target', b'5'), """>""", Field('11', b'\x0d\x0a'),\
+           """""", Field('12', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 202 Accepted
+# Request: Notify
+
+
+functions = [
+
+    ]

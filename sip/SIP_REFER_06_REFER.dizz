@@ -1,0 +1,28 @@
+#Sponsored by DTAG
+name = "SIP_REFER_06_REFER"
+format = 2
+# transport: TCP, 1 answer
+
+
+objects = ["""REFER sip:1.2.111.156:21003 SIP/2.0""", Field('1', b'\x0d\x0a'),\
+           """Via: SIP/2.0/TCP 1.2.111.157:21005;branch=""", Field('via_branch', b'z9hG4bK3667a9aebefa6b6e4eeb04265ab57e1d'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: 70""", Field('3', b'\x0d\x0a'),\
+           """From: <sip:+491234567103@domain1.domain.com;User=phone>;tag=""", Field('from_tag', b'c21719377beb5e9d3fab8214986807a1'), """""", Field('4', b'\x0d\x0a'),\
+           """To: <tel:+491234567102>;tag=""", Field('to_tag', b'b4b0ec07369e5f8cbff5955be698ca55'), """""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'bd6469266f4190b1977b165cd1a0250c'), """""", Field('6', b'\x0d\x0a'),\
+           """Cseq: """, Field('cseq', b'13816'), """ REFER""", Field('7', b'\x0d\x0a'),\
+           """Contact: <sip:1.2.111.157:21005>""", Field('8', b'\x0d\x0a'),\
+           """Refer-To: <tel:+491234567105;method=INVITE>""", Field('9', b'\x0d\x0a'),\
+           """Content-Length: 0""", Field('10', b'\x0d\x0a'),\
+           """Route:<sip:1.2.98.47:21005;transport=tcp;lr;Ssrpt=79a0_116;TRC=ffffffff-ffffffff;X-HwB2bUaCookie=26;CxtId=3;TgId=5>""", Field('11', b'\x0d\x0a'),\
+           """""", Field('12', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 403 Forbidden
+
+
+functions = [
+
+    ]

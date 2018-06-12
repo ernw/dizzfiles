@@ -1,0 +1,76 @@
+#Sponsored by DTAG
+name = "SIP_UPDATE_03_UPDATE_FUZZ"
+format = 2
+# transport: tcp, 1 answer
+
+objects = ["""UPDATE """, List('header_proto', b'sip'), """:""", List('header_ip', b'1.2.111.157'), """:""", List('heaer_port', b'5060'), """ """, List('header_sip', b'SIP'), """/""", List('header_sip_version', b'2.0'), """""", Field('1', b'\x0d\x0a'),\
+           """Via: """, List('via_sip', b'SIP'), """/""", List('via_sip_version', b'2.0'), """/""", List('via_transport', b'UDP'), """ """, List('via_ip', b'1.2.111.156'), """:""", List('via_port', b'5060'), """;branch=""", Field('via_branch', b'z9hG4bK939761f68b32fbdcab006f4e0a9cf58e'),"""""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List('update_max_forwards_value', b'70'), """""", Field('3', b'\x0d\x0a'),\
+           """From: <""", List('from_proto', b'sip'), """:""", List('from_number', b'+491234567001'), """@""", List('from_domain', b'domain1.domain.com'), """;User=""", List('from_user_value', b'phone'), """>;tag=""", Field('from_tag', b'cda2ddfc37b9626238dd3575efbdd1a9'), """""", Field('4', b'\x0d\x0a'),\
+           """To: <""", List('to_proto', b'tel'), """:""", List('to_number', b'+491234567002'), """>;tag=""", Field('to_tag', b'5e8de6250986c261200b5233bc19dec7'), """""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'6962b7fde40d9e3a47ecd9edecbeda20'), """""", Field('6', b'\x0d\x0a'),\
+           """CSeq: """, Field('cseq', b'21374'),""" """, List('cseq_verb', b'UPDATE'), """""", Field('7', b'\x0d\x0a'),\
+           """Content-Length: """, List('contant_length_value', b'1235'), """""", Field('8', b'\x0d\x0a'),\
+           """Route:<""", List('route_proto', b'sip'), """:""", List('route_ip', b'1.2.98.46'), """:""", List('route_port', b'5060'), """;transport=""", List('route_transport', b'udp'), """;""", List('route_lr', b'lr'), """;Ssrpt=""", List('route_ssrpt', b'7990_116'), """;TRC=""", List('route_trc', b'7d06-ffffffff'), """;X-HwB2bUaCookie=""", List('route_cookie', b'25'), """;CxtId=""", List('route_context', b'3'), """;TgId=""", List('route_target_id', b'1'), """>""", Field('9', b'\x0d\x0a'),\
+           """Supported:""", List('route_supported_1', b'timer'), """,""", List('route_supported_2', b'100rel'), """,""", List('route_supported_3', b'precondition'), """,""", List('route_supported_4', b'sec-agree'), """,""", List('route_supported_5', b'histinfo'), """""", Field('10', b'\x0d\x0a'),\
+           """Content-Type:""", List('route_content_type', b'application/sdp'), """""", Field('11', b'\x0d\x0a'),\
+           """""", Field('12', b'\x0d\x0a'),\
+           """v=0 """, Field('13', b'\x0d\x0a'),\
+           """o=- 1234109835 2444050873 IN IP4 172.30.161.100 """, Field('14', b'\x0d\x0a'),\
+           """s=SS VOIP """, Field('15', b'\x0d\x0a'),\
+           """i=A VOIP Session """, Field('16', b'\x0d\x0a'),\
+           """c=IN IP4 172.30.161.167 """, Field('17', b'\x0d\x0a'),\
+           """t=0 0 """, Field('18', b'\x0d\x0a'),\
+           """m=audio 16964 RTP/AVP 116 107 """, Field('19', b'\x0d\x0a'),\
+           """b=AS:200 """, Field('20', b'\x0d\x0a'),\
+           """b=RS:375 """, Field('21', b'\x0d\x0a'),\
+           """b=RR:1125 """, Field('22', b'\x0d\x0a'),\
+           """a=rtpmap:116 AMR-WB/16000/1 """, Field('23', b'\x0d\x0a'),\
+           """a=fmtp:116 mode-set=2;mode-change-capability=2;max-red=220 """, Field('24', b'\x0d\x0a'),\
+           """a=rtpmap:107 AMR-WB/16000/1 """, Field('25', b'\x0d\x0a'),\
+           """a=fmtp:107 octet-align=1;mode-set=2;mode-change-capability=2;max-red=220""", Field('26', b'\x0d\x0a'),\
+           """a=curr:qos local none """, Field('27', b'\x0d\x0a'),\
+           """a=curr:qos remote none """, Field('28', b'\x0d\x0a'),\
+           """a=des:qos mandatory local sendrecv """, Field('29', b'\x0d\x0a'),\
+           """a=des:qos optional remote sendrecv """, Field('30', b'\x0d\x0a'),\
+           """a=inactive""", Field('31', b'\x0d\x0a'),\
+           """a=maxptime:240 """, Field('32', b'\x0d\x0a'),\
+           """a=ptime:20""", Field('33', b'\x0d\x0a'),\
+           """m=audio 16966 RTP/AVP 118 96 """, Field('34', b'\x0d\x0a'),\
+           """a=rtpmap:118 AMR/8000/1 """, Field('35', b'\x0d\x0a'),\
+           """a=fmtp:118 mode-change-capability=2;max-red=220 """, Field('36', b'\x0d\x0a'),\
+           """a=rtpmap:96 AMR/8000/1 """, Field('37', b'\x0d\x0a'),\
+           """a=fmtp:96 octet-align=1;mode-change-capability=2;max-red=220""", Field('38', b'\x0d\x0a'),\
+           """a=curr:qos local none """, Field('39', b'\x0d\x0a'),\
+           """a=curr:qos remote none """, Field('40', b'\x0d\x0a'),\
+           """a=des:qos mandatory local sendrecv """, Field('41', b'\x0d\x0a'),\
+           """a=des:qos optional remote sendrecv""", Field('42', b'\x0d\x0a'),\
+           """a=inactive """, Field('43', b'\x0d\x0a'),\
+           """a=maxptime:240 """, Field('44', b'\x0d\x0a'),\
+           """a=ptime:20""", Field('45', b'\x0d\x0a'),\
+           """m=audio 16968 RTP/AVP 1.2. 110 """, Field('46', b'\x0d\x0a'),\
+           """a=rtpmap:8 PCMA/8000 """, Field('47', b'\x0d\x0a'),\
+           """a=rtpmap:111 telephone-event/16000 """, Field('48', b'\x0d\x0a'),\
+           """a=fmtp:111 0-15 """, Field('49', b'\x0d\x0a'),\
+           """a=rtpmap:110 telephone-event/8000 """, Field('50', b'\x0d\x0a'),\
+           """a=fmtp:110 0-15 """, Field('51', b'\x0d\x0a'),\
+           """a=curr:qos local none """, Field('52', b'\x0d\x0a'),\
+           """a=curr:qos remote none """, Field('53', b'\x0d\x0a'),\
+           """a=des:qos mandatory local sendrecv """, Field('54', b'\x0d\x0a'),\
+           """a=des:qos optional remote sendrecv """, Field('55', b'\x0d\x0a'),\
+           """a=inactive """, Field('56', b'\x0d\x0a'),\
+           """a=maxptime:240 """, Field('57', b'\x0d\x0a'),\
+           """a=ptime:20""", Field('58', b'\x0d\x0a'),\
+           """""", Field('59', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 200 OK
+# 200 OK
+
+
+
+functions = [
+
+    ]

@@ -1,0 +1,31 @@
+#Sponsored by DTAG
+name = "SIP_IPPAB_01_INVITE"
+format = 2
+
+#Transport udp
+
+
+objects = ["""INVITE """, List('header_proto', b'sip'), """:""", List('header_ip', b'1.2.111.157'), """:""", List('header_port', b'5060'), """ """, List('header_sip', b'SIP'), """/""", List('header_sip_version', b'2.0'), """""", Field('1', b'\x0d\x0a'),\
+           """Via: """, List('via_sip', b'SIP'), """/""", List('via_sip_version', b'2.0'), """/""", List('via_sip_transport', b'UDP'), """ """, List('via_sip_ip', b'1.2.111.156'), """:""", List('via_sip_port', b'5060'), """;branch=""", Field('via_branch', b'z9hG4bK7783513b724ec43cf59f761b6eb5cae8'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List('max_forwards_value', b'70'), """""", Field('3', b'\x0d\x0a'),\
+           """From: """, List('from_user_id', b'13900000084'), """<""", List('from_sip', b'sip'), """:""", List('from_number', b'+13900000084'), """@""", List('from_domain', b'domain1.domain.com'), """;user=""", List('from_user_value', b'phone'), """>;tag=""", Field('from_tag', b'77740ed47d019eb841675a2bd6601a5a'), """""", Field('4', b'\x0d\x0a'),\
+           """To: """, List('to_user_id', b'13900000166'), """<""", List('to_proto', b'sip'), """:""", List('to_ip', b'1.2.111.157'), """:""", List('to_port', b'5060'), """>""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'acb8c2b8b80edf108f047f73846b2326'), """""", Field('6', b'\x0d\x0a'),\
+           """CSeq: """, Field('cseq', b'55125'), """ """, List('cseq_verb', b'INVITE'), """""", Field('7', b'\x0d\x0a'),\
+           """Supported: """, List('supported_value', b'100rel'), """""", Field('8', b'\x0d\x0a'),\
+           """Contact: <""", List('contact_proto', b'sip'), """:""", List('contact_ip', b'1.2.111.156'), """:""", List('contact_port', b'5060'), """>""", Field('9', b'\x0d\x0a'),\
+           """Content-Length: """, List('contact_length_value', b'0'), """""", Field('10', b'\x0d\x0a'),\
+           """P-Asserted-Identity:<""", List('p_assserted_id_proto', b'tel'), """:""", List('p_asserted_id_number', b'+491234567001'), """>""", Field('11', b'\x0d\x0a'),\
+           """""", Field('12', b'\x0d\x0a'),\
+           """"""]
+
+# Expected answers
+
+# 100 Trying
+# 183 Session Progress
+
+
+
+functions = [
+
+    ]

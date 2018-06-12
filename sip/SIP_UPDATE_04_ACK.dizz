@@ -1,0 +1,25 @@
+#Sponsored by DTAG
+name = "SIP_UPDATE_04_ACK"
+format = 2
+# transport: tcp, 1 answer
+
+objects = ["""ACK sip:1.2.111.157:5060 SIP/2.0""", Field('1', b'\x0d\x0a'),\
+           """Via: SIP/2.0/UDP 1.2.111.156:5060;branch=""", Field('via_branch', b'z9hG4bK0d3d125f924e8fb9645db0c73ad7086f'), """""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: 70""", Field('3', b'\x0d\x0a'),\
+           """From: <sip:+491234567001@domain1.domain.com;User=phone>;tag=""", Field('from_tag', b'cda2ddfc37b9626238dd3575efbdd1a9'), """""", Field('4', b'\x0d\x0a'),\
+           """To: <tel:+491234567002>;tag=""", Field('to_tag', b'5e8de6250986c261200b5233bc19dec7'), """""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field('call_id', b'6962b7fde40d9e3a47ecd9edecbeda20'), """""", Field('6', b'\x0d\x0a'),\
+           """Cseq: """, Field('cseq', b'21372'), """ ACK""", Field('7', b'\x0d\x0a'),\
+           """Content-Length: 0""", Field('8', b'\x0d\x0a'),\
+           """Route:<sip:1.2.98.46:5060;transport=udp;lr;Ssrpt=7990_116;TRC=7d06-ffffffff;X-HwB2bUaCookie=25;CxtId=3;TgId=1>""", Field('9', b'\x0d\x0a'),\
+           """""", Field('10', b'\x0d\x0a'),\
+           """"""]
+
+
+# Expected answers
+
+# None
+
+functions = [
+
+    ]

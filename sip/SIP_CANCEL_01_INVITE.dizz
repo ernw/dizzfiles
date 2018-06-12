@@ -1,0 +1,32 @@
+#Sponsored by DTAG
+name = "CANCEL_01_INVITE"
+format = 2
+
+
+objects="""INVITE tel:+491234567002 SIP/2.0""", Field('1' , '\x0d\x0a'),\
+"""Via: SIP/2.0/UDP 1.2.111.156:5060;branch=""", Field('via_branch', 'z9hG4bK589e7367df1cad545afd0c1184785652'), Field('2' , '\x0d\x0a'),\
+"""Max-Forwards: 70""", Field('3' , '\x0d\x0a'),\
+"""From: <sip:+491234567001@domain1.domain.com>;tag=""", Field('from_tag' 'db9896eb144e93dd4581ab9cd3724d64'), Field('4' , '\x0d\x0a'),\
+"""To: <tel:+491234567002>""", Field('5' , '\x0d\x0a'),\
+"""Call-ID: """, Field('call_id', '8eef4845fd67c16a4c03e856f57be2cc'), Field('6' , '\x0d\x0a'),\
+"""CSeq: """, Field('cseq', '41353'), """ INVITE""", Field('7' , '\x0d\x0a'),\
+"""Supported: 100rel""", Field('8' , '\x0d\x0a'),\
+"""Contact: <sip:1.2.111.156:5060>""", Field('9' , '\x0d\x0a'),\
+"""Content-Length: 181""", Field('10' , '\x0d\x0a'),\
+"""Content-Type:application/sdp""", Field('11' , '\x0d\x0a'),\
+Field('12' , '\x0d\x0a'),\
+"""v=0""", Field('13' , '\x0d\x0a'),\
+"""o=Spider-Phone 459299516 459299516 IN IP4 1.2.111.156""", Field('14' , '\x0d\x0a'),\
+"""s=Spider-Phone""", Field('15' , '\x0d\x0a'),\
+"""c=IN IP4 1.2.111.156""", Field('16' , '\x0d\x0a'),\
+"""t=0 0""", Field('17' , '\x0d\x0a'),\
+"""m=audio 20000 RTP/AVP 8""", Field('18' , '\x0d\x0a'),\
+"""a=rtpmap:8 PCMA/8000""", Field('19' , '\x0d\x0a'),\
+"""a=ptime:20""", Field('20' , '\x0d\x0a'),\
+"""a=maxptime:20""", Field('21' , '\x0d\x0a'),\
+""""""
+
+
+functions = [
+
+    ]

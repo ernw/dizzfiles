@@ -1,0 +1,43 @@
+#Sponsored by DTAG
+name = "SIP_MESSAGE_01_MESSAGE_FUZZ"
+format = 2
+
+objects = ["""MESSAGE tel:""", List("msg_header_callee_number", config_value('msg_callee_number')), """ SIP/2.0""", Field('1', b'\x0d\x0a'),\
+           """Via: """, List("msg_via_sip",  "SIP"),"""/""", List("msg_via_sip_version",  "2.0"),"""/""", List("msg_via_transport",  "TCP"),""" """, List("msg_via_ip",  config_value('msg_caller_ip')),""":""", List("msg_via_port",  "21005"),""";branch=""", Field("via_branch",  "z9hG4bKe32ada055d7734228350b02db61a9627"),"""""", Field('2', b'\x0d\x0a'),\
+           """Max-Forwards: """, List("msg_max_forwards_value",  "70"),"""""", Field('3', b'\x0d\x0a'),\
+           """From: <""", List("msg_from_proto",  "sip"),""":""", List("msg_from_caller_number", config_value('msg_caller_number')), """@""", List("msg_from_caller_uri", config_value('msg_caller_uri')),""";User=""", List("msg_from_user_specifier",  "phone"),""">;tag""", Field("from_tag",  "db9c1961ec304f394e5a0214e2a51cbc"),"""=""", Field('4', b'\x0d\x0a'),\
+           """To: <""", List("msg_to_caller_number",  config_value('msg_caller_number')),""">""", Field('5', b'\x0d\x0a'),\
+           """Call-ID: """, Field("call_id", "27a0f8db6e1bdfd933eee8ef46348ebc"), """""", Field('6', b'\x0d\x0a'),\
+           """CSeq: """, Field("cseq", "64061"), """ """, List("msg_cseq_verb", "MESSAGE"), """""", Field('7', b'\x0d\x0a'),\
+           """Contact: <""", List("msg_contact_proto",  "sip"),""":""", List("msg_contact_ip",  config_value('msg_caller_ip')),""":""", List("msg_contact_port",  "21005"),""">""", Field('8', b'\x0d\x0a'),\
+           """Content-Length: """, List("msg_content-length_value", "0"), """""", Field('9', b'\x0d\x0a'),\
+           """""", Field('10', b'\x0d\x0a'),\
+           """"""]
+
+# Expected Answers:
+
+# a)
+
+# SIP/2.0 200 OK
+# From: <sip:NUMBER_CALLER@URI;user=phone>;tag=db9c1961ec304f394e5a0214e2a51cbc
+# To: <tel:NUMBER_CALLEE>;tag=28a2faba4c9db74d3d7f2d13514be999
+# Call-ID: 27a0f8db6e1bdfd933eee8ef46348ebc
+# Cseq: 64061 MESSAGE
+# Content-Length: 0
+# Via:SIP/2.0/TCP CALLER_IP:CALLER_PORT;branch=z9hG4bKe32ada055d7734228350b02db61a9627
+
+# b) in case of resend
+
+# SIP/2.0 403 Forbidden
+# Via: SIP/2.0/TCP CALLER_IP:CALLER_PORT;branch=z9hG4bK7451a5a47d009325b08f784b72e55bc3
+# Call-ID: 8a96c46e5ab2bb2bd3aa94c31d916559
+# From: <sip:CALLER_NUMBER@URI;user=phone>;tag=4cf2813115eaae889dd8a286f440380b
+# To: <tel:CALLEE_NUMBER>;tag=24fdc0e49b369e7fab060004bf34dbad
+# CSeq: 57513 MESSAGE
+# Content-Length: 0
+
+
+
+functions = [
+
+]

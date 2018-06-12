@@ -1,0 +1,19 @@
+#Sponsored by DTAG
+name = "CANCEL_03_ACK"
+format = 2
+
+objects="""ACK tel:+491234567002 SIP/2.0""", Field('1' , '\x0d\x0a'),\
+"""Via: SIP/2.0/UDP 1.2.111.156:5060;branch=""", Field('via_branch', b'z9hG4bK589e7367df1cad545afd0c1184785652'), Field('2' , '\x0d\x0a'),\
+"""To: <tel:+491234567002>;tag=""", Field('to_tag', b'f5e8f7393b330c2a7167a5d41150e47a'), Field('3' , '\x0d\x0a'),\
+"""From: <sip:+491234567001@domain1.domain.com>;tag=""", Field('from_tag', b'db9896eb144e93dd4581ab9cd3724d64'), Field('4' , '\x0d\x0a'),\
+"""Call-ID: """, Field('call_id', b'8eef4845fd67c16a4c03e856f57be2cc'), Field('5' , '\x0d\x0a'),\
+"""CSeq: """, Field('cseq', b'41353'), """ ACK""", Field('6' , '\x0d\x0a'),\
+"""Max-Forwards: 70""", Field('7' , '\x0d\x0a'),\
+"""Content-Length: 0""", Field('8' , '\x0d\x0a'),\
+Field('10' , '\x0d\x0a'),\
+""""""
+
+
+functions = [
+
+    ]
